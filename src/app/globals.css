@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fixed brand colors — identical in light & dark */
+  --color-ink: #14110f;
+  --color-ink-soft: #2a2521;
+  --color-paper: #faf6f0;
+  --color-paper-dim: #f0e9df;
+  --color-saffron: #e8622c;
+  --color-saffron-dark: #c44d1d;
+  --color-marigold: #f2a900;
+  --color-indigo-deep: #1e2a52;
+  --color-clay: #8a5a3c;
+
+  /* Semantic theme tokens — flip between light & dark (see :root.dark below) */
+  --color-canvas: #faf6f0;
+  --color-canvas-2: #f0e9df;
+  --color-card: #ffffff;
+  --color-content: #14110f;
+  --color-content-soft: #2a2521;
+  --color-hairline: rgba(20, 17, 15, 0.1);
+  --color-feature: #14110f;
+
+  /* Headings use the sans grotesque; serif is reserved for italic accents. */
+  --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), "Georgia", serif;
+}
+
+:root.dark {
+  --color-canvas: #14110f;
+  --color-canvas-2: #1f1a16;
+  --color-card: #221d19;
+  --color-content: #f4eee4;
+  --color-content-soft: #b3a99c;
+  --color-hairline: rgba(244, 238, 228, 0.13);
+  --color-feature: #221d19;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-content);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Hide scrollbar for filter chips on mobile but keep scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Auto-scrolling brand marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Track holds two identical copies; shifting one full copy loops seamlessly. */
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee var(--marquee-duration, 45s) linear infinite;
+  will-change: transform;
+}
+.marquee-root:hover .marquee-track,
+.marquee-track:focus-within {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
