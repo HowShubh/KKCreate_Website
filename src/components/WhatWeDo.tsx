@@ -60,32 +60,33 @@ export function WhatWeDo() {
         })}
       </div>
 
-      {/* Mobile: static grid (no hover) */}
-      <div className="grid grid-cols-2 gap-2 md:hidden">
-        {WHAT_WE_DO.map((item, i) => (
-          <div
-            key={item.title}
-            className={`relative aspect-[4/5] overflow-hidden rounded-lg bg-canvas-2 ${
-              i === WHAT_WE_DO.length - 1 && WHAT_WE_DO.length % 2 === 1
-                ? "col-span-2 aspect-[2/1]"
-                : ""
-            }`}
-          >
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              sizes="(max-width: 768px) 50vw, 0px"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-3">
-              <h3 className="font-display text-base font-semibold leading-tight text-paper">
-                {item.title}
-              </h3>
+      {/* Mobile: compact grid — 2 wider cards on top, smaller cards below */}
+      <div className="grid grid-cols-6 gap-2.5 md:hidden">
+        {WHAT_WE_DO.map((item, i) => {
+          const top = i < 2;
+          return (
+            <div
+              key={item.title}
+              className={`relative overflow-hidden rounded-xl bg-canvas-2 ${
+                top ? "col-span-3 aspect-[4/3]" : "col-span-2 aspect-[3/4]"
+              }`}
+            >
+              <Image
+                src={item.image}
+                alt={item.title}
+                fill
+                sizes={top ? "(max-width: 768px) 50vw, 0px" : "(max-width: 768px) 33vw, 0px"}
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-2.5">
+                <h3 className="font-display text-sm font-semibold leading-tight text-paper">
+                  {item.title}
+                </h3>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </>
   );
