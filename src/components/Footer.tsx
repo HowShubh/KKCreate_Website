@@ -88,6 +88,22 @@ export function Footer() {
           <p>Made in India.</p>
         </div>
       </div>
+
+      {/* Oversized wordmark fading into the footer */}
+      <div className="relative overflow-hidden">
+        <p
+          aria-hidden
+          className="select-none whitespace-nowrap text-center font-display text-[22vw] font-extrabold leading-[0.8] tracking-tighter text-transparent"
+          style={{
+            backgroundImage:
+              "linear-gradient(to bottom, rgba(250,246,240,0.22), rgba(250,246,240,0.01))",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+          }}
+        >
+          KKCreate
+        </p>
+      </div>
     </footer>
   );
 }
