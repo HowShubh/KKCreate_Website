@@ -126,10 +126,10 @@ export default function HomePage() {
         <SectionHeading
           kicker="Learn with us"
           title="Courses, workshops & tools"
-          intro="A preview of what we teach. Filter by topic or type, or see the full catalog."
+          intro="A preview of what we teach. See the full catalog to filter by topic and type."
         />
         <div className="mt-8">
-          <Catalog items={CATALOG} limit={4} columns={4} viewAllHref="/learn" />
+          <Catalog items={CATALOG} limit={4} columns={4} viewAllHref="/catalog" />
         </div>
       </Section>
 

@@ -1,41 +1,92 @@
-import type { CatalogItem } from "@/lib/content";
+import { CATALOG_CTA, type CatalogItem, type CatalogType } from "@/lib/content";
+
+// Gradient wash per product type — gives each card a distinct, on-brand tint.
+const HERO_GRADIENT: Record<CatalogType, string> = {
+  Course: "from-indigo-deep via-[#26305c] to-[#3a4a7a]",
+  Workshop: "from-[#4a4021] via-[#6b5a24] to-[#a9852b]",
+  Ebook: "from-[#2e2a1c] via-[#4a4021] to-[#6b5d1f]",
+  Tools: "from-saffron-dark via-[#a9502a] to-clay",
+};
+
+// Diagonal hatching drawn over the gradient for a subtle textured backdrop.
+const STRIPES: React.CSSProperties = {
+  backgroundImage:
+    "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 13px)",
+};
 
 export function CatalogCard({ item }: { item: CatalogItem }) {
-  return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card shadow-sm transition-shadow hover:shadow-md">
-      {/* Solid-colour hero — overlaid title + duration pill */}
-      <div className="relative aspect-square overflow-hidden bg-ink-soft">
-        {item.badge && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-saffron px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-paper shadow-sm">
-            <SparkIcon />
-            {item.badge}
-          </span>
-        )}
+  const tagLabel = item.flagship ? "Flagship Course" : item.type;
+  const gradient = item.flagship
+    ? "from-indigo-deep via-[#232a4d] to-[#2c2540]"
+    : HERO_GRADIENT[item.type];
 
-        {/* Title + duration, centred in the solid block */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-4 text-center">
-          <h3 className="font-display text-lg font-bold uppercase leading-tight tracking-tight text-paper">
-            {item.title}
-          </h3>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-paper/95 px-3 py-1 text-xs font-semibold text-ink shadow-sm backdrop-blur">
+  return (
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+      {/* Textured hero — tag, KK mark, play cue, overlaid title + duration */}
+      <div
+        className={`relative aspect-[4/5] overflow-hidden bg-gradient-to-br ${gradient}`}
+      >
+        <div className="absolute inset-0" style={STRIPES} aria-hidden />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10"
+          aria-hidden
+        />
+
+        <span
+          className={`absolute left-3 top-3 z-10 rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
+            item.flagship ? "bg-saffron text-paper" : "bg-ink/80 text-paper"
+          }`}
+        >
+          {tagLabel}
+        </span>
+
+        {/* KK badge + play cue, biased to the upper area so it never
+            collides with a two-line title on short cards */}
+        <div className="absolute inset-x-0 top-0 flex flex-col items-center gap-2.5 pt-[14%] md:gap-3 md:pt-[18%]">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 backdrop-blur-sm md:h-20 md:w-20">
+            <span className="font-display text-xl font-extrabold tracking-tight text-white/45 md:text-2xl">
+              KK
+            </span>
+          </span>
+          <PlayIcon />
+        </div>
+
+        {/* Title (with faint echo) + duration pill */}
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-2 p-4 text-center">
+          <span className="relative inline-block">
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-2 font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white/15 md:text-base"
+            >
+              {item.title}
+            </span>
+            <h3 className="relative font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white drop-shadow-sm md:text-base">
+              {item.title}
+            </h3>
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur">
             <ClockIcon />
             {item.duration}
           </span>
         </div>
       </div>
 
-      {/* Stats band — rating + enrolled */}
-      <div className="flex items-center justify-center gap-3 bg-indigo-deep px-4 py-2 text-xs font-medium text-paper">
-        <span className="inline-flex items-center gap-1.5">
-          <StarIcon />
-          {item.rating.toFixed(1)} rating
-        </span>
-        <span className="h-3 w-px bg-paper/30" />
-        <span className="inline-flex items-center gap-1.5">
-          <UsersIcon />
-          {item.enrolled} enrolled
-        </span>
-      </div>
+      {/* Newly-launched ribbon, or the rating + learners band */}
+      {item.newlyLaunched ? (
+        <div className="flex items-center justify-center gap-1.5 bg-saffron px-4 py-2 text-xs font-bold uppercase tracking-wide text-paper">
+          <SparkIcon />
+          Newly Launched
+        </div>
+      ) : (
+        <div className="flex items-center justify-center gap-3 bg-indigo-deep px-4 py-2 text-xs font-medium text-paper">
+          <span className="inline-flex items-center gap-1.5">
+            <StarIcon />
+            {item.rating.toFixed(1)} rating
+          </span>
+          <span className="h-3 w-px bg-paper/30" />
+          <span>{item.enrolled} learners</span>
+        </div>
+      )}
 
       {/* Price + CTA */}
       <div className="flex items-center justify-between gap-3 px-4 py-3">
@@ -48,10 +99,18 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           rel="noopener noreferrer"
           className="rounded-full bg-saffron px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
         >
-          Enroll Now
+          {CATALOG_CTA[item.type]}
         </a>
       </div>
     </article>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7 fill-white/70" aria-hidden>
+      <path d="M8 5.5v13l11-6.5-11-6.5z" />
+    </svg>
   );
 }
 
@@ -74,20 +133,6 @@ function StarIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 fill-marigold" aria-hidden>
       <path d="M12 2.5l2.92 5.92 6.53.95-4.72 4.6 1.11 6.5L12 17.9l-5.84 3.07 1.11-6.5-4.72-4.6 6.53-.95L12 2.5z" />
-    </svg>
-  );
-}
-
-function UsersIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" aria-hidden>
-      <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="2" />
-      <path
-        d="M3.5 19a5.5 5.5 0 0111 0M16 5.5a3 3 0 010 5.8M20.5 19a5.5 5.5 0 00-4-5.3"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
     </svg>
   );
 }

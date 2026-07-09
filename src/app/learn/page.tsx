@@ -89,7 +89,7 @@ export default function LearnPage() {
             </p>
 
             <a
-              href="#catalog"
+              href="/catalog"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-saffron px-6 py-3 text-base font-semibold text-paper transition-colors hover:bg-saffron-dark"
             >
               Explore courses <span aria-hidden>→</span>
@@ -141,15 +141,15 @@ export default function LearnPage() {
         <FlagshipBlock />
       </Section>
 
-      {/* Full catalog */}
+      {/* Catalog preview */}
       <Section id="catalog">
         <SectionHeading
           kicker="The full catalog"
           title="Everything we offer"
-          intro="Filter by topic or type to find what fits where you are right now."
+          intro="A taste of what we teach. Browse the full catalog to filter by topic and type."
         />
         <div className="mt-8">
-          <Catalog items={CATALOG} />
+          <Catalog items={CATALOG} limit={4} columns={4} viewAllHref="/catalog" />
         </div>
       </Section>
 

@@ -20,6 +20,7 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
+  { label: "Catalog", href: "/catalog" },
   { label: "Learn", href: "/learn" },
   { label: "Photo-essays", href: "/photo-essays" },
 ] as const;
@@ -28,15 +29,21 @@ export const NAV_LINKS = [
 // Catalog
 // ---------------------------------------------------------------------------
 
-export type CatalogTopic = "AI" | "Instagram" | "YouTube" | "Money";
+export type CatalogTopic =
+  | "AI"
+  | "YouTube"
+  | "Instagram"
+  | "Money"
+  | "Writing";
 export type CatalogType = "Workshop" | "Course" | "Ebook" | "Tools";
 
 export const CATALOG_TOPICS: ("All" | CatalogTopic)[] = [
   "All",
   "AI",
-  "Instagram",
   "YouTube",
+  "Instagram",
   "Money",
+  "Writing",
 ];
 export const CATALOG_TYPES: CatalogType[] = [
   "Workshop",
@@ -44,6 +51,24 @@ export const CATALOG_TYPES: CatalogType[] = [
   "Ebook",
   "Tools",
 ];
+
+// Emoji glyphs for the topic filter pills on the catalog page.
+export const CATALOG_TOPIC_EMOJI: Record<"All" | CatalogTopic, string> = {
+  All: "✨",
+  AI: "🤖",
+  YouTube: "▶️",
+  Instagram: "📸",
+  Money: "💰",
+  Writing: "✍️",
+};
+
+// Call-to-action label per product type.
+export const CATALOG_CTA: Record<CatalogType, string> = {
+  Course: "Enroll Now",
+  Workshop: "Book Seat",
+  Ebook: "Get Ebook",
+  Tools: "Get Access",
+};
 
 export type CatalogItem = {
   id: string;
@@ -56,7 +81,8 @@ export type CatalogItem = {
   duration: string; // e.g. "1 hr 3 min"
   rating: number; // e.g. 4.8
   enrolled: string; // e.g. "9k+"
-  badge?: string; // optional ribbon, e.g. "Newly launched"
+  flagship?: boolean; // marks the hero product (special badge + accent)
+  newlyLaunched?: boolean; // shows a "Newly launched" ribbon in place of stats
   enrollUrl: string; // → external payment page (out of scope, already built)
   knowMoreUrl: string; // → external landing page (out of scope, already built)
 };
@@ -75,25 +101,9 @@ export const CATALOG: CatalogItem[] = [
     duration: "1 hr 3 min",
     rating: 4.8,
     enrolled: "9k+",
-    badge: "Newly launched",
+    flagship: true,
     enrollUrl: "https://pay.kkcreate.in/ai-content-creation",
     knowMoreUrl: "https://learn.kkcreate.in/ai-content-creation",
-  },
-  {
-    id: "instagram-growth-workshop",
-    title: "Instagram Growth Workshop",
-    type: "Workshop",
-    topic: "Instagram",
-    thumbnail:
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-    description:
-      "A live two-day workshop on reels, hooks and the 2026 Instagram algorithm.",
-    price: "₹1,499",
-    duration: "2 days · live",
-    rating: 4.9,
-    enrolled: "5k+",
-    enrollUrl: "https://pay.kkcreate.in/instagram-growth",
-    knowMoreUrl: "https://learn.kkcreate.in/instagram-growth",
   },
   {
     id: "youtube-zero-to-100k",
@@ -108,8 +118,25 @@ export const CATALOG: CatalogItem[] = [
     duration: "2 hr 14 min",
     rating: 4.7,
     enrolled: "7k+",
+    newlyLaunched: true,
     enrollUrl: "https://pay.kkcreate.in/youtube-100k",
     knowMoreUrl: "https://learn.kkcreate.in/youtube-100k",
+  },
+  {
+    id: "instagram-growth-workshop",
+    title: "Instagram Growth Workshop",
+    type: "Workshop",
+    topic: "Instagram",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+    description:
+      "A live two-day workshop on reels, hooks and the 2026 Instagram algorithm.",
+    price: "₹1,499",
+    duration: "2 days · live",
+    rating: 4.9,
+    enrolled: "6k+",
+    enrollUrl: "https://pay.kkcreate.in/instagram-growth",
+    knowMoreUrl: "https://learn.kkcreate.in/instagram-growth",
   },
   {
     id: "creator-money-ebook",
@@ -126,6 +153,22 @@ export const CATALOG: CatalogItem[] = [
     enrolled: "12k+",
     enrollUrl: "https://pay.kkcreate.in/money-playbook",
     knowMoreUrl: "https://learn.kkcreate.in/money-playbook",
+  },
+  {
+    id: "youtube-shorts-workshop",
+    title: "YouTube Shorts Sprint",
+    type: "Workshop",
+    topic: "YouTube",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
+    description:
+      "A one-day sprint to script and shoot a week of Shorts that actually land.",
+    price: "₹999",
+    duration: "1 day · live",
+    rating: 4.8,
+    enrolled: "4k+",
+    enrollUrl: "https://pay.kkcreate.in/shorts-sprint",
+    knowMoreUrl: "https://learn.kkcreate.in/shorts-sprint",
   },
   {
     id: "reels-toolkit",
@@ -156,25 +199,9 @@ export const CATALOG: CatalogItem[] = [
     duration: "Prompt pack",
     rating: 4.7,
     enrolled: "4k+",
-    badge: "Newly launched",
+    newlyLaunched: true,
     enrollUrl: "https://pay.kkcreate.in/ai-thumbnails",
     knowMoreUrl: "https://learn.kkcreate.in/ai-thumbnails",
-  },
-  {
-    id: "youtube-shorts-workshop",
-    title: "YouTube Shorts Sprint",
-    type: "Workshop",
-    topic: "YouTube",
-    thumbnail:
-      "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=800&q=80",
-    description:
-      "A one-day sprint to script and shoot a week of Shorts that actually land.",
-    price: "₹999",
-    duration: "1 day · live",
-    rating: 4.8,
-    enrolled: "3k+",
-    enrollUrl: "https://pay.kkcreate.in/shorts-sprint",
-    knowMoreUrl: "https://learn.kkcreate.in/shorts-sprint",
   },
   {
     id: "money-brand-deals-course",
@@ -191,6 +218,135 @@ export const CATALOG: CatalogItem[] = [
     enrolled: "6k+",
     enrollUrl: "https://pay.kkcreate.in/brand-deals",
     knowMoreUrl: "https://learn.kkcreate.in/brand-deals",
+  },
+  {
+    id: "scriptwriting-masterclass",
+    title: "Scriptwriting Masterclass",
+    type: "Course",
+    topic: "Writing",
+    thumbnail:
+      "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&q=80",
+    description:
+      "Turn a rough idea into a tight, retention-first script using our story blueprints.",
+    price: "₹1,999",
+    duration: "1 hr 52 min",
+    rating: 4.8,
+    enrolled: "5k+",
+    enrollUrl: "https://pay.kkcreate.in/scriptwriting",
+    knowMoreUrl: "https://learn.kkcreate.in/scriptwriting",
+  },
+  {
+    id: "hook-writing-ebook",
+    title: "100 Hooks That Convert",
+    type: "Ebook",
+    topic: "Writing",
+    thumbnail:
+      "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&q=80",
+    description:
+      "A swipe file of 100 opening lines, broken down by why each one stops the scroll.",
+    price: "₹399",
+    duration: "36 pages",
+    rating: 4.7,
+    enrolled: "10k+",
+    enrollUrl: "https://pay.kkcreate.in/hooks-ebook",
+    knowMoreUrl: "https://learn.kkcreate.in/hooks-ebook",
+  },
+  {
+    id: "youtube-thumbnail-course",
+    title: "Thumbnails That Get Clicks",
+    type: "Course",
+    topic: "YouTube",
+    thumbnail:
+      "https://images.unsplash.com/photo-1626785774625-0b1c2c4a05a1?w=800&q=80",
+    description:
+      "Composition, contrast and psychology behind thumbnails that lift your CTR.",
+    price: "₹1,299",
+    duration: "58 min",
+    rating: 4.6,
+    enrolled: "7k+",
+    enrollUrl: "https://pay.kkcreate.in/thumbnails-course",
+    knowMoreUrl: "https://learn.kkcreate.in/thumbnails-course",
+  },
+  {
+    id: "ai-editing-workshop",
+    title: "AI Video Editing Workshop",
+    type: "Workshop",
+    topic: "AI",
+    thumbnail:
+      "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
+    description:
+      "A live session on cutting your edit time in half with AI-assisted workflows.",
+    price: "₹1,199",
+    duration: "1 day · live",
+    rating: 4.8,
+    enrolled: "3k+",
+    newlyLaunched: true,
+    enrollUrl: "https://pay.kkcreate.in/ai-editing",
+    knowMoreUrl: "https://learn.kkcreate.in/ai-editing",
+  },
+  {
+    id: "instagram-monetization-course",
+    title: "Monetise Your Instagram",
+    type: "Course",
+    topic: "Money",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611926653458-09294b3142bf?w=800&q=80",
+    description:
+      "Every revenue stream on Instagram, from brand deals to your own digital products.",
+    price: "₹2,299",
+    duration: "1 hr 24 min",
+    rating: 4.7,
+    enrolled: "5k+",
+    enrollUrl: "https://pay.kkcreate.in/insta-monetize",
+    knowMoreUrl: "https://learn.kkcreate.in/insta-monetize",
+  },
+  {
+    id: "caption-templates-tools",
+    title: "Caption & Carousel Pack",
+    type: "Tools",
+    topic: "Writing",
+    thumbnail:
+      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80",
+    description:
+      "Fill-in-the-blank caption and carousel templates for a month of posts.",
+    price: "₹599",
+    duration: "40+ templates",
+    rating: 4.6,
+    enrolled: "6k+",
+    enrollUrl: "https://pay.kkcreate.in/caption-pack",
+    knowMoreUrl: "https://learn.kkcreate.in/caption-pack",
+  },
+  {
+    id: "youtube-analytics-ebook",
+    title: "Reading Your Analytics",
+    type: "Ebook",
+    topic: "YouTube",
+    thumbnail:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    description:
+      "A plain-English guide to the four metrics that actually decide your growth.",
+    price: "₹449",
+    duration: "44 pages",
+    rating: 4.5,
+    enrolled: "8k+",
+    enrollUrl: "https://pay.kkcreate.in/analytics-ebook",
+    knowMoreUrl: "https://learn.kkcreate.in/analytics-ebook",
+  },
+  {
+    id: "faceless-channel-workshop",
+    title: "Build a Faceless Channel",
+    type: "Workshop",
+    topic: "AI",
+    thumbnail:
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80",
+    description:
+      "A live build of an AI-assisted faceless channel, from niche to first upload.",
+    price: "₹1,499",
+    duration: "2 days · live",
+    rating: 4.8,
+    enrolled: "4k+",
+    enrollUrl: "https://pay.kkcreate.in/faceless-channel",
+    knowMoreUrl: "https://learn.kkcreate.in/faceless-channel",
   },
 ];
 

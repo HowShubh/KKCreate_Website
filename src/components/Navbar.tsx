@@ -41,7 +41,7 @@ export function Navbar() {
           </ul>
           <ThemeToggle />
           <Link
-            href="/learn"
+            href="/catalog"
             className="rounded-full bg-content px-5 py-2 text-sm font-semibold text-canvas transition-colors hover:bg-saffron hover:text-paper"
           >
             Explore Courses
@@ -94,7 +94,7 @@ export function Navbar() {
             ))}
             <li className="pt-2">
               <Link
-                href="/learn"
+                href="/catalog"
                 onClick={() => setOpen(false)}
                 className="block rounded-full bg-content px-5 py-3 text-center text-sm font-semibold text-canvas"
               >
