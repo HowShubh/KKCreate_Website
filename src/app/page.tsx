@@ -8,7 +8,7 @@ import { BrandMarquee } from "@/components/BrandMarquee";
 import { SocialIcon } from "@/components/SocialIcon";
 import {
   SITE,
-  METRICS,
+  GROWTH,
   VIBE,
   CATALOG,
 } from "@/lib/content";
@@ -85,18 +85,42 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* Growth Metrics */}
-      <section className="bg-indigo-deep py-16 text-paper md:py-20">
-        <div className="container-page">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {METRICS.map((m) => (
-              <div key={m.label} className="text-center sm:text-left">
-                <div className="font-display text-4xl font-semibold text-marigold md:text-5xl">
-                  {m.value}
-                </div>
-                <div className="mt-2 text-sm uppercase tracking-wide text-paper/70">
-                  {m.label}
-                </div>
+      {/* Growth band — featured stat + list */}
+      <section className="bg-ink py-20 text-paper md:py-28">
+        <div className="container-page grid gap-14 md:grid-cols-2 md:items-center md:gap-20">
+          {/* Featured stat */}
+          <div>
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-saffron">
+              {GROWTH.kicker}
+            </p>
+            <div className="mt-4 font-display text-7xl font-extrabold leading-[0.9] tracking-tight text-paper md:text-[8.5rem]">
+              {GROWTH.feature.value}
+              <span className="text-saffron">{GROWTH.feature.plus}</span>
+            </div>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-paper/55">
+              {GROWTH.feature.caption.prefix}
+              <span className="font-serif italic text-paper/75">
+                {GROWTH.feature.caption.emphasis}
+              </span>
+              {GROWTH.feature.caption.suffix}
+            </p>
+          </div>
+
+          {/* Stat list */}
+          <div className="md:pl-6">
+            {GROWTH.stats.map((s, i) => (
+              <div
+                key={s.label}
+                className={`flex items-baseline justify-between gap-6 py-6 ${
+                  i > 0 ? "border-t border-paper/10" : ""
+                }`}
+              >
+                <span className="text-sm font-medium uppercase tracking-wide text-paper/45">
+                  {s.label}
+                </span>
+                <span className="font-display text-3xl font-bold text-paper md:text-4xl">
+                  {s.value}
+                </span>
               </div>
             ))}
           </div>

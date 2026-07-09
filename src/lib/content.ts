@@ -417,12 +417,24 @@ export const WHAT_WE_DO: WhatWeDoItem[] = [
   },
 ];
 
-export const METRICS = [
-  { value: "25M+", label: "Avg. Monthly Views" },
-  { value: "40M+", label: "Monthly Reach" },
-  { value: "1.2M+", label: "Avg. Views / Video" },
-  { value: "180+", label: "Stories Published" },
-] as const;
+// Home "growth" band — one featured stat on the left, a list on the right.
+export const GROWTH = {
+  kicker: "Every single month",
+  feature: {
+    value: "40M",
+    plus: "+",
+    caption: {
+      prefix: "people reached — more than the population of ",
+      emphasis: "Canada",
+      suffix: ".",
+    },
+  },
+  stats: [
+    { label: "Avg. views / video", value: "1.2M+" },
+    { label: "Stories published", value: "180+" },
+    { label: "Districts covered", value: "214" },
+  ],
+} as const;
 
 // Brands we've worked with — auto-scrolling marquee on the home page.
 // `logo` is optional: if omitted the brand name is shown as a wordmark chip.
