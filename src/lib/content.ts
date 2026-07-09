@@ -382,37 +382,32 @@ export const WHAT_WE_DO: WhatWeDoItem[] = [
     title: "On-Ground Videos",
     description:
       "We travel across India to document the social realities most feeds scroll past.",
-    image:
-      "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1000&q=80",
+    image: "/what-we-do/on-ground.jpg",
     featured: true,
   },
   {
     title: "Podcast",
     description:
       "Long-form conversations with the people living the stories we tell.",
-    image:
-      "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=1000&q=80",
+    image: "/what-we-do/podcast.jpg",
   },
   {
     title: "Short-form",
     description:
       "Reels and Shorts that turn complex realities into a 60-second watch.",
-    image:
-      "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1000&q=80",
+    image: "/what-we-do/short-form.jpg",
   },
   {
     title: "Courses & Workshops",
     description:
       "We teach creators the systems we use to research, shoot and grow.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1000&q=80",
+    image: "/what-we-do/courses-workshops.jpg",
   },
   {
     title: "Explainers",
     description:
       "In-studio videos where we break down complex topics through animations and expert interviews — made from our home, built for curious minds.",
-    image:
-      "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1000&q=80",
+    image: "/what-we-do/explainers.jpg",
   },
 ];
 
