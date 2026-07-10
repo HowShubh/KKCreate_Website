@@ -88,8 +88,8 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
         </div>
       )}
 
-      {/* Price + CTA */}
-      <div className="flex items-center justify-between gap-3 px-4 py-3">
+      {/* Price + CTA — stacks on narrow cards so the label stays on one line */}
+      <div className="flex flex-col items-stretch gap-2.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
         <span className="font-display text-lg font-bold text-content">
           {item.price}
         </span>
@@ -97,7 +97,7 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           href={item.enrollUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-saffron px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
+          className="whitespace-nowrap rounded-full bg-saffron px-4 py-2 text-center text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
         >
           {CATALOG_CTA[item.type]}
         </a>
