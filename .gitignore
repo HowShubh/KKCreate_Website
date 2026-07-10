@@ -2,6 +2,7 @@
 /.next
 /out
 /build
+/.sanity
 .DS_Store
 *.pem
 .env*
