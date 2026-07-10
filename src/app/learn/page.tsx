@@ -5,7 +5,8 @@ import { FlagshipBlock } from "@/components/FlagshipBlock";
 import { Catalog } from "@/components/Catalog";
 import { FaqAccordion } from "@/components/FaqAccordion";
 import { TestimonialsShowcase } from "@/components/TestimonialsShowcase";
-import { CATALOG, SOCIAL_PROOF } from "@/lib/content";
+import { SOCIAL_PROOF } from "@/lib/content";
+import { getCatalogItems } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Learn",
@@ -29,7 +30,8 @@ const LEARN_HERO = {
   ],
 };
 
-export default function LearnPage() {
+export default async function LearnPage() {
+  const catalogItems = await getCatalogItems();
   return (
     <>
       {/* Hero — full-bleed image, copy anchored left */}
@@ -149,7 +151,7 @@ export default function LearnPage() {
           intro="A taste of what we teach. Browse the full catalog to filter by topic and type."
         />
         <div className="mt-8">
-          <Catalog items={CATALOG} limit={4} columns={4} viewAllHref="/catalog" />
+          <Catalog items={catalogItems} limit={4} columns={4} viewAllHref="/catalog" />
         </div>
       </Section>
 

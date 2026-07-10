@@ -6,14 +6,11 @@ import { WhatWeDo } from "@/components/WhatWeDo";
 import { HeroVideo } from "@/components/HeroVideo";
 import { BrandMarquee } from "@/components/BrandMarquee";
 import { SocialIcon } from "@/components/SocialIcon";
-import {
-  SITE,
-  GROWTH,
-  VIBE,
-  CATALOG,
-} from "@/lib/content";
+import { SITE, GROWTH, VIBE } from "@/lib/content";
+import { getCatalogItems } from "@/lib/catalog";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const catalogItems = await getCatalogItems();
   return (
     <>
       {/* Hero — video anchored to the right, solid panel on the left */}
@@ -153,7 +150,7 @@ export default function HomePage() {
           intro="A preview of what we teach. See the full catalog to filter by topic and type."
         />
         <div className="mt-8">
-          <Catalog items={CATALOG} limit={4} columns={4} viewAllHref="/catalog" />
+          <Catalog items={catalogItems} limit={4} columns={4} viewAllHref="/catalog" />
         </div>
       </Section>
 

@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { FLAGSHIP } from "@/lib/content";
+import { getFlagship } from "@/lib/catalog";
 
-export function FlagshipBlock() {
+export async function FlagshipBlock() {
+  const FLAGSHIP = await getFlagship();
   return (
     <div className="container-page">
       <div className="overflow-hidden rounded-3xl bg-feature text-paper">
