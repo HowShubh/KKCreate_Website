@@ -451,46 +451,53 @@ export const BRAND_WORK: BrandWork[] = [
   { brand: "OYO", logo: "https://cdn.simpleicons.org/oyo/ffffff" },
 ];
 
-// Each frame cycles through its `srcs` on a loop (see VibeGrid).
-const VIBE_IMG = {
-  team: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80",
-  founders:
-    "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80",
-  editBay:
-    "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80",
-  location:
-    "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1200&q=80",
-  huddle:
-    "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1200&q=80",
-  desk: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&q=80",
-  whiteboard:
-    "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80",
-} as const;
+// The Vibe grid is a masonry of frames. A frame is either a looping muted
+// video (`video` + `poster`) or a stack of stills (`srcs`) that slowly
+// cross-fade. Portraits/video sit in `tall` frames and landscapes in `wide`
+// ones so faces are framed, not cropped. Assets live in /public/vibe.
+export type VibeFrame = {
+  srcs?: readonly string[];
+  video?: string;
+  poster?: string;
+  caption: string;
+  span: "tall" | "wide" | "normal";
+};
 
-export const VIBE = [
+export const VIBE: readonly VibeFrame[] = [
   {
-    srcs: [VIBE_IMG.team, VIBE_IMG.huddle, VIBE_IMG.editBay],
-    caption: "The whole team between shoots",
+    video: "/vibe/vibe.mp4",
+    poster: "/vibe/vibe-video-poster.jpg",
+    caption: "Rolling, somewhere in India",
     span: "tall",
   },
   {
-    srcs: [VIBE_IMG.founders, VIBE_IMG.desk, VIBE_IMG.location],
-    caption: "Founders mapping the next series",
+    srcs: ["/vibe/vibe-03.jpg", "/vibe/vibe-12.jpg", "/vibe/vibe-15.jpg"],
+    caption: "The crew, between setups",
+    span: "tall",
+  },
+  {
+    srcs: ["/vibe/vibe-08.jpg", "/vibe/vibe-13.jpg", "/vibe/vibe-10.jpg"],
+    caption: "Faces behind the camera",
+    span: "tall",
+  },
+  {
+    srcs: ["/vibe/vibe-02.jpg", "/vibe/vibe-17.jpg"],
+    caption: "The KK Create family",
+    span: "normal",
+  },
+  {
+    srcs: ["/vibe/vibe-11.jpg", "/vibe/vibe-14.jpg", "/vibe/vibe-16.jpg"],
+    caption: "Chai, rushes and a lot of laughs",
+    span: "normal",
+  },
+  {
+    srcs: ["/vibe/vibe-01.jpg", "/vibe/vibe-04.jpg", "/vibe/vibe-05.jpg"],
+    caption: "On location across the country",
     span: "wide",
   },
   {
-    srcs: [VIBE_IMG.editBay, VIBE_IMG.whiteboard, VIBE_IMG.team],
-    caption: "Edit bay, 2am energy",
-    span: "normal",
-  },
-  {
-    srcs: [VIBE_IMG.location, VIBE_IMG.team, VIBE_IMG.huddle],
-    caption: "On location in Rajasthan",
-    span: "normal",
-  },
-  {
-    srcs: [VIBE_IMG.huddle, VIBE_IMG.founders, VIBE_IMG.whiteboard],
-    caption: "Research huddle",
+    srcs: ["/vibe/vibe-06.jpg", "/vibe/vibe-07.jpg", "/vibe/vibe-09.jpg"],
+    caption: "Long shoot days",
     span: "wide",
   },
 ] as const;
