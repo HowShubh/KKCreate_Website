@@ -465,39 +465,61 @@ export type VibeFrame = {
 
 export const VIBE: readonly VibeFrame[] = [
   {
+    // Team sharing chaat in the office lounge.
     video: "/vibe/vibe.mp4",
     poster: "/vibe/vibe-video-poster.jpg",
-    caption: "Rolling, somewhere in India",
+    caption: "Snack breaks in the office",
     span: "tall",
   },
   {
-    srcs: ["/vibe/vibe-03.jpg", "/vibe/vibe-12.jpg", "/vibe/vibe-15.jpg"],
-    caption: "The crew, between setups",
+    // 2M cake + Silver Play Button celebrations.
+    srcs: ["/vibe/vibe-12.jpg", "/vibe/vibe-13.jpg", "/vibe/vibe-08.jpg"],
+    caption: "Celebrating the milestones",
     span: "tall",
   },
   {
-    srcs: ["/vibe/vibe-08.jpg", "/vibe/vibe-13.jpg", "/vibe/vibe-10.jpg"],
-    caption: "Faces behind the camera",
+    // Festivals, cafes and evenings out with the team.
+    srcs: [
+      "/vibe/vibe-15.jpg",
+      "/vibe/vibe-17.jpg",
+      "/vibe/vibe-10.jpg",
+      "/vibe/vibe-03.jpg",
+    ],
+    caption: "Off the clock, together",
     span: "tall",
   },
   {
-    srcs: ["/vibe/vibe-02.jpg", "/vibe/vibe-17.jpg"],
-    caption: "The KK Create family",
+    // The whole team back at the office — group photos, meetings, merch.
+    srcs: [
+      "/vibe/vibe-07.jpg",
+      "/vibe/vibe-11.jpg",
+      "/vibe/vibe-04.jpg",
+      "/vibe/vibe-16.jpg",
+    ],
+    caption: "A full house at the office",
     span: "normal",
   },
   {
-    srcs: ["/vibe/vibe-11.jpg", "/vibe/vibe-14.jpg", "/vibe/vibe-16.jpg"],
-    caption: "Chai, rushes and a lot of laughs",
+    // Rooftop dinners, auto rides, evenings around the city.
+    srcs: [
+      "/vibe/vibe-01.jpg",
+      "/vibe/vibe-02.jpg",
+      "/vibe/vibe-05.jpg",
+      "/vibe/vibe-06.jpg",
+    ],
+    caption: "Team nights out",
     span: "normal",
   },
   {
-    srcs: ["/vibe/vibe-01.jpg", "/vibe/vibe-04.jpg", "/vibe/vibe-05.jpg"],
-    caption: "On location across the country",
+    // The one actual shoot in this set — the podcast studio.
+    srcs: ["/vibe/vibe-09.jpg"],
+    caption: "Podcast day in the studio",
     span: "wide",
   },
   {
-    srcs: ["/vibe/vibe-06.jpg", "/vibe/vibe-07.jpg", "/vibe/vibe-09.jpg"],
-    caption: "Long shoot days",
+    // Cricket, badminton and football at the park.
+    srcs: ["/vibe/vibe-14.jpg"],
+    caption: "Game day at the park",
     span: "wide",
   },
 ] as const;
