@@ -430,6 +430,90 @@ export const GROWTH = {
   ],
 } as const;
 
+// "Where we've filmed" — pins on the dotted India map (home page).
+// x/y live in the projected map space from src/lib/india-dots.ts
+// (0–100 wide × 0–107.6 tall; generated from real city lon/lat).
+// Demo videos — swap title/views/url/thumbnail for real ones.
+export type FilmedPlace = {
+  id: string;
+  city: string;
+  title: string;
+  views: string;
+  url: string;
+  thumbnail: string;
+  x: number;
+  y: number;
+};
+
+export const FILMED_PLACES: FilmedPlace[] = [
+  {
+    id: "mumbai",
+    city: "Mumbai",
+    title: "Dabbawalas: A 99.99% Perfect Network",
+    views: "4.5M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1529253355930-ddbe423a2ac7?w=600&q=80",
+    x: 16.1,
+    y: 66.8,
+  },
+  {
+    id: "jaipur",
+    city: "Jaipur",
+    title: "Inside Jaipur's 300-Year-Old Gem Bazaar",
+    views: "1.3M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&q=80",
+    x: 26.1,
+    y: 37.8,
+  },
+  {
+    id: "varanasi",
+    city: "Varanasi",
+    title: "The Ghats That Never Sleep",
+    views: "2.1M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=600&q=80",
+    x: 50.7,
+    y: 43.7,
+  },
+  {
+    id: "kolkata",
+    city: "Kolkata",
+    title: "Kolkata's Last Hand-Pulled Rickshaws",
+    views: "3.2M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1558431382-27e303142255?w=600&q=80",
+    x: 69.1,
+    y: 53.8,
+  },
+  {
+    id: "meghalaya",
+    city: "Meghalaya",
+    title: "The Living Root Bridges",
+    views: "2.7M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80",
+    x: 81.2,
+    y: 42.7,
+  },
+  {
+    id: "bengaluru",
+    city: "Bengaluru",
+    title: "India's Silicon Valley Dream, Up Close",
+    views: "1.8M views",
+    url: "https://www.youtube.com/@kk.create",
+    thumbnail:
+      "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&q=80",
+    x: 32.2,
+    y: 89.4,
+  },
+];
+
 // Brands we've worked with — auto-scrolling marquee on the home page.
 // `logo` is optional: if omitted the brand name is shown as a wordmark chip.
 // Swap `thumbnail` for the real video still and `videoUrl` for the post link.

@@ -9,7 +9,8 @@ import { SocialIcon } from "@/components/SocialIcon";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
 import { CopyEmail } from "@/components/CopyEmail";
-import { GROWTH, VIBE } from "@/lib/content";
+import { GROWTH, VIBE, FILMED_PLACES } from "@/lib/content";
+import { IndiaMap } from "@/components/IndiaMap";
 import { getCatalogItems } from "@/lib/catalog";
 import { getSiteSettings } from "@/lib/settings";
 
@@ -54,9 +55,8 @@ export default async function HomePage() {
               of India
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/85">
-              We are a video-first studio documenting the people, places and
-              tensions that shape modern India — and teaching creators to do
-              the same.
+              Capturing the beauty, the breakdowns, and the unfiltered
+              reality of modern India.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {settings.platforms.map((p) => (
@@ -129,6 +129,26 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Where we've filmed — dotted India map with video pins */}
+      <Section>
+        <SectionHeading
+          kicker="Where we've filmed"
+          title={
+            <>
+              One country.{" "}
+              <span className="font-serif font-normal italic">
+                Thousands of stories.
+              </span>
+            </>
+          }
+          align="center"
+          intro="Tap a dot to see what we shot there."
+        />
+        <Reveal className="mt-10">
+          <IndiaMap places={FILMED_PLACES} />
+        </Reveal>
+      </Section>
 
       {/* Brands we've worked with */}
       <section className="py-16 md:py-24">
