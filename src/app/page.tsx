@@ -8,6 +8,7 @@ import { BrandMarquee } from "@/components/BrandMarquee";
 import { SocialIcon } from "@/components/SocialIcon";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
+import { CopyEmail } from "@/components/CopyEmail";
 import { GROWTH, VIBE } from "@/lib/content";
 import { getCatalogItems } from "@/lib/catalog";
 import { getSiteSettings } from "@/lib/settings";
@@ -230,6 +231,9 @@ function ContactCard({
       >
         {cta} <span aria-hidden>→</span>
       </a>
+      <div className="mt-3 text-sm">
+        <CopyEmail email={email} tone="onLight" />
+      </div>
     </div>
   );
 }

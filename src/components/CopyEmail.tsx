@@ -5,8 +5,18 @@ import { useState } from "react";
 // Shows an email as a mailto: link (opens the visitor's mail app) with a copy
 // button beside it, so if no mail handler is set they can still grab the
 // address. Used in the footer's "Get in touch" list.
-export function CopyEmail({ email }: { email: string }) {
+export function CopyEmail({
+  email,
+  tone = "onDark",
+}: {
+  email: string;
+  tone?: "onDark" | "onLight";
+}) {
   const [copied, setCopied] = useState(false);
+  const linkCls =
+    tone === "onLight" ? "text-content" : "text-paper/90";
+  const btnCls =
+    tone === "onLight" ? "text-content-soft" : "text-paper/45";
 
   async function copy() {
     try {
@@ -34,7 +44,7 @@ export function CopyEmail({ email }: { email: string }) {
     <span className="inline-flex items-center gap-2">
       <a
         href={`mailto:${email}`}
-        className="text-paper/90 transition-colors hover:text-saffron"
+        className={`${linkCls} transition-colors hover:text-saffron`}
       >
         {email}
       </a>
@@ -42,7 +52,7 @@ export function CopyEmail({ email }: { email: string }) {
         type="button"
         onClick={copy}
         aria-label={copied ? "Email copied" : `Copy ${email}`}
-        className="inline-flex items-center gap-1 text-paper/45 transition-colors hover:text-saffron"
+        className={`inline-flex items-center gap-1 ${btnCls} transition-colors hover:text-saffron`}
       >
         {copied ? (
           <>
