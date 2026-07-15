@@ -1,0 +1,508 @@
+[
+  {
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Light",
+              "value": "light"
+            },
+            {
+              "title": "Dark",
+              "value": "dark"
+            },
+            {
+              "title": "Follow device setting",
+              "value": "system"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "system",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "light",
+                  "dark",
+                  "system"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "The colour theme new visitors see on their first load, before they toggle it themselves.",
+        "name": "defaultTheme",
+        "type": "string",
+        "title": "Default theme (first visit)"
+      },
+      {
+        "description": "Shown in the home hero and the footer. Drag to reorder.",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "title": "YouTube",
+                      "value": "youtube"
+                    },
+                    {
+                      "title": "Instagram",
+                      "value": "instagram"
+                    },
+                    {
+                      "title": "Facebook",
+                      "value": "facebook"
+                    },
+                    {
+                      "title": "LinkedIn",
+                      "value": "linkedin"
+                    }
+                  ],
+                  "layout": "dropdown"
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "youtube",
+                          "instagram",
+                          "facebook",
+                          "linkedin"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "platform",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url"
+              }
+            ],
+            "type": "object",
+            "name": "socialLink"
+          }
+        ],
+        "name": "social",
+        "type": "array",
+        "title": "Social links"
+      },
+      {
+        "options": {
+          "collapsible": false
+        },
+        "fields": [
+          {
+            "name": "brands",
+            "type": "string"
+          },
+          {
+            "name": "creators",
+            "type": "string"
+          },
+          {
+            "name": "careers",
+            "type": "string"
+          }
+        ],
+        "name": "contacts",
+        "type": "object",
+        "title": "Get in touch — emails"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            "Course",
+            "Workshop",
+            "Ebook",
+            "Tools"
+          ],
+          "layout": "radio"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "Course",
+                  "Workshop",
+                  "Ebook",
+                  "Tools"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "type",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            "AI",
+            "YouTube",
+            "Instagram",
+            "Money",
+            "Writing"
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "AI",
+                  "YouTube",
+                  "Instagram",
+                  "Money",
+                  "Writing"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "topic",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Whole rupees, e.g. 4999 — shown as ₹4,999.",
+        "name": "priceAmount",
+        "type": "number",
+        "title": "Price (₹)"
+      },
+      {
+        "description": "e.g. \"1 hr 3 min\", \"2 days · live\", \"48 pages\"",
+        "name": "duration",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              },
+              {
+                "flag": "precision",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "rating",
+        "type": "number"
+      },
+      {
+        "description": "e.g. \"9k+\"",
+        "name": "enrolled",
+        "type": "string"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional. Used for the flagship block; cards use a colour wash.",
+        "name": "image",
+        "type": "image",
+        "title": "Thumbnail"
+      },
+      {
+        "initialValue": false,
+        "name": "newlyLaunched",
+        "type": "boolean",
+        "title": "Show \"Newly launched\" ribbon"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark exactly one item as the flagship (Home & Learn hero).",
+        "name": "flagship",
+        "type": "boolean",
+        "title": "Flagship course"
+      },
+      {
+        "hidden": "conditional",
+        "name": "flagshipKicker",
+        "type": "string",
+        "title": "Flagship — kicker"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "flagshipPointers",
+        "type": "array",
+        "title": "Flagship — bullet points"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "enrollUrl",
+        "type": "url",
+        "title": "Enroll URL"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "knowMoreUrl",
+        "type": "url",
+        "title": "Know-more URL"
+      },
+      {
+        "description": "Lower numbers appear first (the default 'featured' order).",
+        "name": "order",
+        "type": "number"
+      }
+    ],
+    "name": "catalogItem",
+    "type": "document",
+    "title": "Catalog item"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Shown on the card, e.g. \"Varanasi\" or \"Tawang\".",
+        "name": "city",
+        "type": "string",
+        "title": "Place name"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "location",
+        "type": "geopoint",
+        "title": "Location on the map"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Video title"
+      },
+      {
+        "description": "e.g. \"2.1M views\" — shown under the title.",
+        "name": "views",
+        "type": "string",
+        "title": "Views label"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "url",
+        "type": "url",
+        "title": "YouTube URL"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional — if left empty, the video's own YouTube thumbnail is used.",
+        "name": "thumbnail",
+        "type": "image"
+      }
+    ],
+    "name": "filmedPlace",
+    "type": "document",
+    "title": "Filmed place"
+  }
+]
