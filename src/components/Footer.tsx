@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { SocialIcon } from "@/components/SocialIcon";
+import { CopyEmail } from "@/components/CopyEmail";
 import { SITE, NAV_LINKS } from "@/lib/content";
 import { getSiteSettings } from "@/lib/settings";
 
@@ -55,30 +56,15 @@ export async function Footer() {
           <ul className="mt-4 space-y-3">
             <li>
               <span className="block text-sm text-paper/50">Brands</span>
-              <a
-                href={`mailto:${contacts.brands}`}
-                className="text-paper/90 transition-colors hover:text-saffron"
-              >
-                {contacts.brands}
-              </a>
+              <CopyEmail email={contacts.brands} />
             </li>
             <li>
               <span className="block text-sm text-paper/50">Creators</span>
-              <a
-                href={`mailto:${contacts.creators}`}
-                className="text-paper/90 transition-colors hover:text-saffron"
-              >
-                {contacts.creators}
-              </a>
+              <CopyEmail email={contacts.creators} />
             </li>
             <li>
               <span className="block text-sm text-paper/50">Careers</span>
-              <a
-                href={`mailto:${contacts.careers}`}
-                className="text-paper/90 transition-colors hover:text-saffron"
-              >
-                {contacts.careers}
-              </a>
+              <CopyEmail email={contacts.careers} />
             </li>
           </ul>
         </div>

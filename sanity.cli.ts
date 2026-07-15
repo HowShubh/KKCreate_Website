@@ -7,8 +7,8 @@ export default defineCliConfig({
   // postcss.config.mjs and can't parse its Tailwind v4 `plugins: ["..."]`
   // form. The Studio doesn't use Tailwind, so give Vite an empty PostCSS
   // config to stop it searching the project root.
-  vite: (config) => ({
+  vite: (config: Record<string, unknown>) => ({
     ...config,
-    css: { ...config.css, postcss: {} },
+    css: { ...(config.css as object), postcss: {} },
   }),
 });
