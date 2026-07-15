@@ -65,15 +65,17 @@ export function IndiaMap({ places }: { places: FilmedPlace[] }) {
             })`,
           }}
         >
-          <div className="relative aspect-video bg-canvas-2">
-            <Image
-              src={active.thumbnail}
-              alt={active.title}
-              fill
-              sizes="256px"
-              className="object-cover grayscale"
-            />
-          </div>
+          {active.thumbnail && (
+            <div className="relative aspect-video bg-canvas-2">
+              <Image
+                src={active.thumbnail}
+                alt={active.title}
+                fill
+                sizes="256px"
+                className="object-cover grayscale"
+              />
+            </div>
+          )}
           <div className="p-3">
             <p className="text-[10px] font-bold uppercase tracking-widest text-saffron">
               {active.city}

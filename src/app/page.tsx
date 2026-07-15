@@ -9,14 +9,16 @@ import { SocialIcon } from "@/components/SocialIcon";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
 import { CopyEmail } from "@/components/CopyEmail";
-import { GROWTH, VIBE, FILMED_PLACES } from "@/lib/content";
+import { GROWTH, VIBE } from "@/lib/content";
 import { IndiaMap } from "@/components/IndiaMap";
 import { getCatalogItems } from "@/lib/catalog";
 import { getSiteSettings } from "@/lib/settings";
+import { getFilmedPlaces } from "@/lib/filmedPlaces";
 
 export default async function HomePage() {
   const catalogItems = await getCatalogItems();
   const settings = await getSiteSettings();
+  const filmedPlaces = await getFilmedPlaces();
   return (
     <>
       {/* Hero — video anchored to the right, solid panel on the left */}
@@ -146,7 +148,7 @@ export default async function HomePage() {
           intro="Tap a dot to see what we shot there."
         />
         <Reveal className="mt-10">
-          <IndiaMap places={FILMED_PLACES} />
+          <IndiaMap places={filmedPlaces} />
         </Reveal>
       </Section>
 

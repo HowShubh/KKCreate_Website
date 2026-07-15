@@ -97,6 +97,15 @@ const ts = `// AUTO-GENERATED — do not edit by hand.
 export const INDIA_MAP_W = ${W};
 export const INDIA_MAP_H = ${H};
 
+// Geographic bounds of the projection (lon/lat ↔ map x/y). Used to project
+// CMS geopoints onto the map and to unproject Studio clicks back to lat/lng.
+export const INDIA_BOUNDS = {
+  minLon: ${Math.round(minLon * 1e6) / 1e6},
+  maxLon: ${Math.round(maxLon * 1e6) / 1e6},
+  minLat: ${Math.round(minLat * 1e6) / 1e6},
+  maxLat: ${Math.round(maxLat * 1e6) / 1e6},
+} as const;
+
 // "x,y" pairs separated by spaces — parsed once at module load.
 const PACKED =
   "${flat}";
