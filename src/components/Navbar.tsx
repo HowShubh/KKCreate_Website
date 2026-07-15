@@ -15,7 +15,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
       <nav className="container-page flex h-16 items-center justify-between">
         <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
-          <Logo />
+          <Logo priority />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

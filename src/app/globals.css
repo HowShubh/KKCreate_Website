@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Make `dark:` variants follow next-themes' `.dark` class on <html>. Without
+   this, Tailwind v4 keys `dark:` off prefers-color-scheme, which ignores the
+   in-app theme toggle. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Fixed brand colors — identical in light & dark */
   --color-ink: #14110f;

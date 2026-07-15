@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="mt-24 overflow-hidden rounded-t-[2.5rem] bg-feature text-paper">
       <div className="container-page grid gap-12 py-14 md:grid-cols-12">
         <div className="md:col-span-5">
-          <Logo className="[&_span:last-child]:text-paper" />
+          <Logo onDark />
           <p className="mt-4 max-w-xs font-display text-lg leading-snug text-paper/80">
             {SITE.motto}
           </p>
