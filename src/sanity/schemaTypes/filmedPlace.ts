@@ -41,7 +41,8 @@ export const filmedPlace = defineType({
       name: "views",
       title: "Views label",
       type: "string",
-      description: 'e.g. "2.1M views" — shown under the title.',
+      description:
+        'e.g. "2.1M views" — or leave empty to auto-fetch the live count from YouTube (site needs a YOUTUBE_API_KEY).',
     }),
     defineField({
       name: "url",
