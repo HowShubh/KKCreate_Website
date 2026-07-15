@@ -6,11 +6,15 @@ import { WhatWeDo } from "@/components/WhatWeDo";
 import { HeroVideo } from "@/components/HeroVideo";
 import { BrandMarquee } from "@/components/BrandMarquee";
 import { SocialIcon } from "@/components/SocialIcon";
-import { SITE, GROWTH, VIBE } from "@/lib/content";
+import { CountUp } from "@/components/CountUp";
+import { Reveal } from "@/components/Reveal";
+import { GROWTH, VIBE } from "@/lib/content";
 import { getCatalogItems } from "@/lib/catalog";
+import { getSiteSettings } from "@/lib/settings";
 
 export default async function HomePage() {
   const catalogItems = await getCatalogItems();
+  const settings = await getSiteSettings();
   return (
     <>
       {/* Hero — video anchored to the right, solid panel on the left */}
@@ -54,7 +58,7 @@ export default async function HomePage() {
               the same.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              {SITE.platforms.map((p) => (
+              {settings.platforms.map((p) => (
                 <a
                   key={p.name}
                   href={p.href}
@@ -77,21 +81,21 @@ export default async function HomePage() {
           kicker="What We Do"
           title="How we tell India's stories"
         />
-        <div className="mt-10">
+        <Reveal className="mt-10">
           <WhatWeDo />
-        </div>
+        </Reveal>
       </Section>
 
       {/* Growth band — featured stat + list */}
       <section className="bg-ink py-20 text-paper md:py-28">
         <div className="container-page grid gap-14 md:grid-cols-2 md:items-center md:gap-20">
           {/* Featured stat */}
-          <div>
+          <Reveal>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-saffron">
               {GROWTH.kicker}
             </p>
             <div className="mt-4 font-display text-7xl font-extrabold leading-[0.9] tracking-tight text-paper md:text-[8.5rem]">
-              {GROWTH.feature.value}
+              <CountUp value={GROWTH.feature.value} />
               <span className="text-saffron">{GROWTH.feature.plus}</span>
             </div>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-paper/55">
@@ -101,13 +105,14 @@ export default async function HomePage() {
               </span>
               {GROWTH.feature.caption.suffix}
             </p>
-          </div>
+          </Reveal>
 
           {/* Stat list */}
           <div className="md:pl-6">
             {GROWTH.stats.map((s, i) => (
-              <div
+              <Reveal
                 key={s.label}
+                delay={i * 110}
                 className={`flex items-baseline justify-between gap-6 py-6 ${
                   i > 0 ? "border-t border-paper/10" : ""
                 }`}
@@ -116,9 +121,9 @@ export default async function HomePage() {
                   {s.label}
                 </span>
                 <span className="font-display text-3xl font-bold text-paper md:text-4xl">
-                  {s.value}
+                  <CountUp value={s.value} />
                 </span>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -161,9 +166,9 @@ export default async function HomePage() {
           title="The people behind the camera"
           intro="Founders, editors, researchers and a lot of chai. This is what a week with us looks like."
         />
-        <div className="mt-10">
+        <Reveal className="mt-10">
           <VibeGrid photos={VIBE} />
-        </div>
+        </Reveal>
       </Section>
 
       {/* Contact */}
@@ -174,24 +179,30 @@ export default async function HomePage() {
           align="center"
         />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          <ContactCard
-            title="For Brands"
-            text="Sponsorships, branded films and integrated campaigns."
-            cta="Pitch a collaboration"
-            email={SITE.contacts.brands}
-          />
-          <ContactCard
-            title="For Creators"
-            text="Want to collaborate, guest on the podcast or join a shoot?"
-            cta="Reach the team"
-            email={SITE.contacts.creators}
-          />
-          <ContactCard
-            title="Careers"
-            text="Editors, researchers, producers — we're always hiring curious people."
-            cta="See how to apply"
-            email={SITE.contacts.careers}
-          />
+          <Reveal delay={0}>
+            <ContactCard
+              title="For Brands"
+              text="Sponsorships, branded films and integrated campaigns."
+              cta="Pitch a collaboration"
+              email={settings.contacts.brands}
+            />
+          </Reveal>
+          <Reveal delay={90}>
+            <ContactCard
+              title="For Creators"
+              text="Want to collaborate, guest on the podcast or join a shoot?"
+              cta="Reach the team"
+              email={settings.contacts.creators}
+            />
+          </Reveal>
+          <Reveal delay={180}>
+            <ContactCard
+              title="Careers"
+              text="Editors, researchers, producers — we're always hiring curious people."
+              cta="See how to apply"
+              email={settings.contacts.careers}
+            />
+          </Reveal>
         </div>
       </Section>
     </>

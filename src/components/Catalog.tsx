@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type CatalogItem } from "@/lib/content";
 import { CatalogCard } from "@/components/CatalogCard";
+import { Reveal } from "@/components/Reveal";
 
 // Lightweight preview grid used on the Home and Learn pages. The full
 // filter + pagination experience lives on the dedicated /catalog page.
@@ -28,8 +29,10 @@ export function Catalog({
               : "gap-6 sm:grid-cols-2 lg:grid-cols-3"
         }`}
       >
-        {visible.map((item) => (
-          <CatalogCard key={item.id} item={item} />
+        {visible.map((item, i) => (
+          <Reveal key={item.id} delay={(i % columns) * 90}>
+            <CatalogCard item={item} />
+          </Reveal>
         ))}
       </div>
 

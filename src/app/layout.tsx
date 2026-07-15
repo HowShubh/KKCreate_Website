@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SITE } from "@/lib/content";
+import { getSiteSettings } from "@/lib/settings";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -29,11 +30,12 @@ export const metadata: Metadata = {
   description: SITE.motto,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settings = await getSiteSettings();
   return (
     <html
       lang="en"
@@ -41,7 +43,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col">
-        <ThemeProvider>
+        <ThemeProvider defaultTheme={settings.defaultTheme}>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

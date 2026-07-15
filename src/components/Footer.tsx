@@ -2,8 +2,10 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { SocialIcon } from "@/components/SocialIcon";
 import { SITE, NAV_LINKS } from "@/lib/content";
+import { getSiteSettings } from "@/lib/settings";
 
-export function Footer() {
+export async function Footer() {
+  const { platforms, contacts } = await getSiteSettings();
   return (
     <footer className="mt-24 overflow-hidden rounded-t-[2.5rem] bg-feature text-paper">
       <div className="container-page grid gap-12 py-14 md:grid-cols-12">
@@ -13,7 +15,7 @@ export function Footer() {
             {SITE.motto}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            {SITE.platforms.map((p) => (
+            {platforms.map((p) => (
               <a
                 key={p.name}
                 href={p.href}
@@ -54,28 +56,28 @@ export function Footer() {
             <li>
               <span className="block text-sm text-paper/50">Brands</span>
               <a
-                href={`mailto:${SITE.contacts.brands}`}
+                href={`mailto:${contacts.brands}`}
                 className="text-paper/90 transition-colors hover:text-saffron"
               >
-                {SITE.contacts.brands}
+                {contacts.brands}
               </a>
             </li>
             <li>
               <span className="block text-sm text-paper/50">Creators</span>
               <a
-                href={`mailto:${SITE.contacts.creators}`}
+                href={`mailto:${contacts.creators}`}
                 className="text-paper/90 transition-colors hover:text-saffron"
               >
-                {SITE.contacts.creators}
+                {contacts.creators}
               </a>
             </li>
             <li>
               <span className="block text-sm text-paper/50">Careers</span>
               <a
-                href={`mailto:${SITE.contacts.careers}`}
+                href={`mailto:${contacts.careers}`}
                 className="text-paper/90 transition-colors hover:text-saffron"
               >
-                {SITE.contacts.careers}
+                {contacts.careers}
               </a>
             </li>
           </ul>
