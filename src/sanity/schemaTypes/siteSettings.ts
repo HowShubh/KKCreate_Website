@@ -55,7 +55,21 @@ export const siteSettings = defineType({
               validation: (r) => r.required(),
             }),
           ],
-          preview: { select: { title: "platform", subtitle: "url" } },
+          preview: {
+            select: { platform: "platform", url: "url" },
+            prepare({ platform, url }) {
+              const labels: Record<string, string> = {
+                youtube: "YouTube",
+                instagram: "Instagram",
+                facebook: "Facebook",
+                linkedin: "LinkedIn",
+              };
+              return {
+                title: platform ? (labels[platform] ?? platform) : "Social link",
+                subtitle: url,
+              };
+            },
+          },
         }),
       ],
     }),
