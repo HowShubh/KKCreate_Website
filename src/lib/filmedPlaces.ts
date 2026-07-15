@@ -10,7 +10,7 @@ import { urlForImage } from "@/sanity/image";
 type PlaceDoc = {
   _id: string;
   city: string;
-  title: string;
+  title?: string;
   views?: string;
   url?: string;
   location?: { lat?: number; lng?: number };
@@ -42,37 +42,57 @@ const compactNumber = new Intl.NumberFormat("en", {
   maximumFractionDigits: 1,
 });
 
+type VideoMeta = { title?: string; views?: string };
+
 /**
- * Live view counts for places whose `views` field is empty. Needs a
+ * Live title + view count for places whose fields are empty. Needs a
  * YOUTUBE_API_KEY env var (YouTube Data API v3); silently returns nothing
- * without one, so the field just stays blank. One batched request covers
- * up to 50 videos and is cached alongside the places (5 min).
+ * without one, so those fields just stay blank. Batched 50 videos per
+ * request (the API's max) and cached alongside the places (5 min).
  */
-async function fetchViews(ids: string[]): Promise<Record<string, string>> {
+async function fetchVideoMeta(
+  ids: string[],
+): Promise<Record<string, VideoMeta>> {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key || !ids.length) return {};
+
+  const chunks: string[][] = [];
+  for (let i = 0; i < ids.length; i += 50) chunks.push(ids.slice(i, i + 50));
+
+  const meta: Record<string, VideoMeta> = {};
   try {
-    const res = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${ids
-        .slice(0, 50)
-        .join(",")}&key=${key}`,
-      { next: { revalidate: 300 } },
+    const results = await Promise.all(
+      chunks.map(async (chunk) => {
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${chunk.join(",")}&key=${key}`,
+          { next: { revalidate: 300 } },
+        );
+        if (!res.ok) throw new Error(`YouTube API ${res.status}`);
+        return (await res.json()) as {
+          items?: {
+            id: string;
+            snippet?: { title?: string };
+            statistics?: { viewCount?: string };
+          }[];
+        };
+      }),
     );
-    if (!res.ok) throw new Error(`YouTube API ${res.status}`);
-    const data = (await res.json()) as {
-      items?: { id: string; statistics?: { viewCount?: string } }[];
-    };
-    const views: Record<string, string> = {};
-    for (const item of data.items ?? []) {
-      const n = Number(item.statistics?.viewCount);
-      if (Number.isFinite(n) && n > 0)
-        views[item.id] = `${compactNumber.format(n)} views`;
+    for (const data of results) {
+      for (const item of data.items ?? []) {
+        const n = Number(item.statistics?.viewCount);
+        meta[item.id] = {
+          title: item.snippet?.title,
+          views:
+            Number.isFinite(n) && n > 0
+              ? `${compactNumber.format(n)} views`
+              : undefined,
+        };
+      }
     }
-    return views;
   } catch (err) {
-    console.error("[filmed-places] YouTube views fetch failed:", err);
-    return {};
+    console.error("[filmed-places] YouTube metadata fetch failed:", err);
   }
+  return meta;
 }
 
 export async function getFilmedPlaces(): Promise<FilmedPlace[]> {
@@ -87,21 +107,21 @@ export async function getFilmedPlaces(): Promise<FilmedPlace[]> {
         typeof d.location?.lng === "number",
     );
 
-    // Auto-fill empty views from YouTube (one batched request, key-gated).
+    // Auto-fill empty titles/views from YouTube (batched, key-gated).
     const missingIds = placed
-      .filter((d) => !d.views)
+      .filter((d) => !d.views || !d.title)
       .map((d) => youtubeId(d.url))
       .filter((id): id is string => Boolean(id));
-    const liveViews = await fetchViews([...new Set(missingIds)]);
+    const liveMeta = await fetchVideoMeta([...new Set(missingIds)]);
 
     return placed.map((d) => {
       const { x, y } = projectLatLng(d.location!.lat!, d.location!.lng!);
-      const vid = youtubeId(d.url);
+      const meta = liveMeta[youtubeId(d.url) ?? ""] ?? {};
       return {
         id: d._id,
         city: d.city,
-        title: d.title,
-        views: d.views || (vid ? (liveViews[vid] ?? "") : ""),
+        title: d.title || meta.title || "",
+        views: d.views || meta.views || "",
         url: d.url ?? "#",
         thumbnail: d.thumbnail
           ? urlForImage(d.thumbnail).width(640).height(360).url()

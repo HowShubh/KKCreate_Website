@@ -35,7 +35,8 @@ export const filmedPlace = defineType({
       name: "title",
       title: "Video title",
       type: "string",
-      validation: (r) => r.required(),
+      description:
+        "Optional — leave empty to use the video's own YouTube title (site needs a YOUTUBE_API_KEY). Fill in to show a custom/shorter label.",
     }),
     defineField({
       name: "views",
