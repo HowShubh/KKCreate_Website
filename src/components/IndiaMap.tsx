@@ -1,18 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { FilmedPlace } from "@/lib/content";
 import { INDIA_DOTS, INDIA_MAP_W, INDIA_MAP_H } from "@/lib/india-dots";
 
-// Dotted India map with clickable pins. Clicking a pin opens a small card with
-// the video filmed at that place. The dot matrix is pre-generated from the
-// official India boundary GeoJSON (see src/lib/india-dots.ts); pin x/y in
-// FILMED_PLACES live in the same projected coordinate space.
+// Dotted India map with pins. Hovering a pin previews its video card; clicking
+// pins the card open so the "Watch on YouTube" link is clickable. The dot
+// matrix is pre-generated from the official India boundary GeoJSON (see
+// src/lib/india-dots.ts); pin x/y live in the same projected space.
 
 export function IndiaMap({ places }: { places: FilmedPlace[] }) {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [pinnedId, setPinnedId] = useState<string | null>(null);
+  const [hoverId, setHoverId] = useState<string | null>(null);
+  // Delay clearing the hover so the cursor can travel the small gap between
+  // the pin and its card without the card vanishing mid-way.
+  const hoverTimeout = useRef<number | null>(null);
 
+  const keepHover = (id: string) => {
+    if (hoverTimeout.current) window.clearTimeout(hoverTimeout.current);
+    setHoverId(id);
+  };
+  const dropHover = () => {
+    if (hoverTimeout.current) window.clearTimeout(hoverTimeout.current);
+    hoverTimeout.current = window.setTimeout(() => setHoverId(null), 160);
+  };
+  useEffect(
+    () => () => {
+      if (hoverTimeout.current) window.clearTimeout(hoverTimeout.current);
+    },
+    [],
+  );
+
+  const activeId = pinnedId ?? hoverId;
   const active = places.find((p) => p.id === activeId) ?? null;
 
   return (
@@ -23,7 +43,10 @@ export function IndiaMap({ places }: { places: FilmedPlace[] }) {
         className="block w-full text-content/45"
         aria-label="Map of India showing places we've filmed"
         role="img"
-        onClick={() => setActiveId(null)}
+        onClick={() => {
+          setPinnedId(null);
+          setHoverId(null);
+        }}
       >
         {INDIA_DOTS.map(([x, y], i) => (
           <circle key={i} cx={x} cy={y} r={0.55} fill="currentColor" />
@@ -39,7 +62,17 @@ export function IndiaMap({ places }: { places: FilmedPlace[] }) {
             type="button"
             aria-label={`${p.city}: ${p.title}`}
             aria-expanded={isActive}
-            onClick={() => setActiveId(isActive ? null : p.id)}
+            onMouseEnter={() => keepHover(p.id)}
+            onMouseLeave={dropHover}
+            onFocus={() => keepHover(p.id)}
+            onBlur={dropHover}
+            onClick={() => {
+              const unpinning = pinnedId === p.id;
+              setPinnedId(unpinning ? null : p.id);
+              // On touch there's no real hover to fall back to — clear it so
+              // a second tap actually closes the card.
+              if (unpinning) setHoverId(null);
+            }}
             className={`absolute z-10 flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full shadow-md transition-transform hover:scale-125 ${
               isActive ? "bg-saffron" : "bg-content"
             }`}
@@ -56,6 +89,8 @@ export function IndiaMap({ places }: { places: FilmedPlace[] }) {
       {/* Popup card */}
       {active && (
         <div
+          onMouseEnter={() => keepHover(active.id)}
+          onMouseLeave={dropHover}
           className="absolute z-20 w-56 overflow-hidden rounded-xl border border-hairline bg-card shadow-2xl sm:w-64"
           style={{
             left: `${(active.x / INDIA_MAP_W) * 100}%`,
