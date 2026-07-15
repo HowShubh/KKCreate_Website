@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CATALOG_CTA, type CatalogItem, type CatalogType } from "@/lib/content";
 
 // Gradient wash per product type — gives each card a distinct, on-brand tint.
@@ -22,15 +23,46 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-hairline bg-card shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-      {/* Textured hero — tag, KK mark, play cue, overlaid title + duration */}
-      <div
-        className={`relative aspect-[4/5] overflow-hidden bg-gradient-to-br ${gradient}`}
-      >
-        <div className="absolute inset-0" style={STRIPES} aria-hidden />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10"
-          aria-hidden
-        />
+      {/* Hero — uploaded thumbnail if set, else the textured gradient placeholder */}
+      <div className="relative aspect-[4/5] overflow-hidden bg-ink-soft">
+        {item.thumbnail ? (
+          <>
+            <Image
+              src={item.thumbnail}
+              alt={item.title}
+              fill
+              sizes="(max-width: 1024px) 45vw, 25vw"
+              className="object-cover"
+            />
+            {/* Scrim so the tag + title stay legible over any photo */}
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/25"
+              aria-hidden
+            />
+          </>
+        ) : (
+          <>
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${gradient}`}
+              aria-hidden
+            />
+            <div className="absolute inset-0" style={STRIPES} aria-hidden />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10"
+              aria-hidden
+            />
+            {/* KK badge + play cue, biased upward so it never collides with a
+                two-line title on short cards */}
+            <div className="absolute inset-x-0 top-0 flex flex-col items-center gap-2.5 pt-[14%] md:gap-3 md:pt-[18%]">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 backdrop-blur-sm md:h-20 md:w-20">
+                <span className="font-display text-xl font-extrabold tracking-tight text-white/45 md:text-2xl">
+                  KK
+                </span>
+              </span>
+              <PlayIcon />
+            </div>
+          </>
+        )}
 
         <span
           className={`absolute left-3 top-3 z-10 rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
@@ -40,26 +72,17 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           {tagLabel}
         </span>
 
-        {/* KK badge + play cue, biased to the upper area so it never
-            collides with a two-line title on short cards */}
-        <div className="absolute inset-x-0 top-0 flex flex-col items-center gap-2.5 pt-[14%] md:gap-3 md:pt-[18%]">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 backdrop-blur-sm md:h-20 md:w-20">
-            <span className="font-display text-xl font-extrabold tracking-tight text-white/45 md:text-2xl">
-              KK
-            </span>
-          </span>
-          <PlayIcon />
-        </div>
-
-        {/* Title (with faint echo) + duration pill */}
+        {/* Title (faint echo only on the gradient placeholder) + duration pill */}
         <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-2 p-4 text-center">
           <span className="relative inline-block">
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-2 font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white/15 md:text-base"
-            >
-              {item.title}
-            </span>
+            {!item.thumbnail && (
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-2 font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white/15 md:text-base"
+              >
+                {item.title}
+              </span>
+            )}
             <h3 className="relative font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white drop-shadow-sm md:text-base">
               {item.title}
             </h3>
