@@ -144,7 +144,6 @@ export default async function HomePage() {
               </span>
             </>
           }
-          align="center"
           intro="Tap a dot to see what we shot there."
         />
         <Reveal className="mt-10">
