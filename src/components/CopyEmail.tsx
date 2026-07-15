@@ -8,9 +8,12 @@ import { useState } from "react";
 export function CopyEmail({
   email,
   tone = "onDark",
+  compact = false,
 }: {
   email: string;
   tone?: "onDark" | "onLight";
+  // compact: just a "Copy email" button, no address shown (for the contact cards).
+  compact?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
   const linkCls =
@@ -38,6 +41,29 @@ export function CopyEmail({
     }
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1600);
+  }
+
+  if (compact) {
+    return (
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={copied ? "Email copied" : "Copy email address"}
+        className={`inline-flex items-center gap-1.5 text-sm font-medium ${btnCls} transition-colors hover:text-saffron`}
+      >
+        {copied ? (
+          <>
+            <CheckIcon />
+            <span className="text-saffron">Copied!</span>
+          </>
+        ) : (
+          <>
+            <CopyIcon />
+            <span>Copy email</span>
+          </>
+        )}
+      </button>
+    );
   }
 
   return (

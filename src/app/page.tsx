@@ -231,8 +231,8 @@ function ContactCard({
       >
         {cta} <span aria-hidden>→</span>
       </a>
-      <div className="mt-3 text-sm">
-        <CopyEmail email={email} tone="onLight" />
+      <div className="mt-3">
+        <CopyEmail email={email} tone="onLight" compact />
       </div>
     </div>
   );
