@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function CatalogPage() {
   const items = await getCatalogItems();
   return (
-    <section className="py-14 md:py-20">
+    <section className="py-7 md:py-10">
       <div className="container-page">
         <CatalogBrowser items={items} />
       </div>

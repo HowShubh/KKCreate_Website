@@ -44,7 +44,7 @@ export default async function HomePage() {
             </>
           }
         />
-        <div className="container-page flex min-h-[86vh] flex-col justify-end pb-16 pt-8 md:justify-center md:py-28">
+        <div className="container-page flex min-h-[86vh] flex-col justify-end pb-8 pt-8 md:justify-center md:py-14">
           <div className="max-w-2xl">
             <h1 className="font-display text-5xl font-bold leading-[1.03] tracking-tight text-paper md:text-7xl">
               Making a video
@@ -90,7 +90,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Growth band — featured stat + list */}
-      <section className="bg-ink py-20 text-paper md:py-28">
+      <section className="bg-ink py-10 text-paper md:py-14">
         <div className="container-page grid gap-14 md:grid-cols-2 md:items-center md:gap-20">
           {/* Featured stat */}
           <Reveal>
@@ -154,7 +154,7 @@ export default async function HomePage() {
       </Section>
 
       {/* Brands we've worked with */}
-      <section className="py-16 md:py-24">
+      <section className="py-8 md:py-12">
         <div className="container-page">
           <SectionHeading
             kicker="Trusted by"

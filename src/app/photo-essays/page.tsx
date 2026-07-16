@@ -15,7 +15,7 @@ export default function PhotoEssaysPage() {
     <>
       {/* Hero */}
       <section className="border-b border-hairline">
-        <div className="container-page py-20 md:py-28">
+        <div className="container-page py-10 md:py-14">
           <p className="text-sm font-semibold uppercase tracking-widest text-saffron">
             Photo-essays
           </p>
@@ -71,7 +71,7 @@ export default function PhotoEssaysPage() {
       </Section>
 
       {/* Impact */}
-      <section className="bg-indigo-deep py-16 text-paper md:py-24">
+      <section className="bg-indigo-deep py-8 text-paper md:py-12">
         <div className="container-page">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-marigold">

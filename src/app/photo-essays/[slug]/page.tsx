@@ -71,7 +71,7 @@ export default async function EssayPage({
       </header>
 
       {/* Body */}
-      <div className="container-page py-12 md:py-16">
+      <div className="container-page py-6 md:py-8">
         <div className="space-y-10">
           {essay.blocks.map((block, i) => (
             <Block key={i} block={block} />

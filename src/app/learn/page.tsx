@@ -50,7 +50,7 @@ export default async function LearnPage() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink from-5% via-ink/80 via-40% to-transparent to-85%" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/30" />
 
-        <div className="container-page relative flex min-h-[68vh] flex-col justify-center py-20 md:py-28">
+        <div className="container-page relative flex min-h-[68vh] flex-col justify-center py-10 md:py-14">
           <div className="max-w-xl">
             {/* Social proof — avatars + member count */}
             <div className="flex items-center gap-3">
