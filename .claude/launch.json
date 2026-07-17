@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 3000,
       "autoPort": true
+    },
+    {
+      "name": "kkcreate-studio",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "studio:dev"],
+      "port": 3333,
+      "autoPort": true
     }
   ]
 }

@@ -30,6 +30,10 @@
   --font-display: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-serif), "Georgia", serif;
+
+  /* Photo-essay editorial faces: Newsreader titles/body, JetBrains kickers. */
+  --font-essay: var(--font-newsreader), "Georgia", serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", monospace;
 }
 
 :root.dark {
@@ -70,6 +74,35 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Distraction-free /write editor: hide the public navbar & footer while the
+   editor is on screen. */
+body:has(.editor-root) > header,
+body:has(.editor-root) > footer {
+  display: none;
+}
+
+/* Textured stand-in for photo-essay images that have no photograph yet —
+   the diagonal-stripe card from the design mockups. */
+.essay-placeholder {
+  background-color: var(--color-canvas-2);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 16px,
+    rgba(31, 26, 21, 0.05) 16px,
+    rgba(31, 26, 21, 0.05) 32px
+  );
+}
+:root.dark .essay-placeholder {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 16px,
+    rgba(244, 238, 228, 0.05) 16px,
+    rgba(244, 238, 228, 0.05) 32px
+  );
 }
 
 /* Hide scrollbar for filter chips on mobile but keep scroll */

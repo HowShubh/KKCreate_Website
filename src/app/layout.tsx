@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Inter, Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
@@ -22,6 +22,20 @@ const serif = Fraunces({
   style: ["italic", "normal"],
 });
 
+// Editorial faces for the photo-essay pages (titles/body + mono kickers).
+const essaySerif = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  display: "swap",
+  style: ["normal", "italic"],
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: `${SITE.brand} — ${SITE.motto}`,
@@ -39,7 +53,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${serif.variable}`}
+      className={`${sans.variable} ${serif.variable} ${essaySerif.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col">
