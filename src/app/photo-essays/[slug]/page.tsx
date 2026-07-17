@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EssayArticle } from "@/components/EssayArticle";
-import { getPhotoEssay, getPhotoEssays, getReadNext } from "@/lib/photoEssays";
+import { SITE } from "@/lib/content";
+import {
+  getPhotoEssay,
+  getPhotoEssays,
+  getReadNext,
+  type PhotoEssay,
+} from "@/lib/photoEssays";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export async function generateStaticParams() {
   const essays = await getPhotoEssays();
@@ -38,5 +45,33 @@ export default async function EssayPage({
   const essay = await getPhotoEssay(slug);
   if (!essay) notFound();
   const readNext = await getReadNext(slug);
-  return <EssayArticle essay={essay} readNext={readNext} />;
+  return (
+    <>
+      {/* Article structured data — how search engines and AI assistants
+          reliably extract the headline, author and date. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd(essay)) }}
+      />
+      <EssayArticle essay={essay} readNext={readNext} />
+    </>
+  );
+}
+
+function articleJsonLd(essay: PhotoEssay) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: essay.title,
+    description: essay.dek,
+    datePublished: essay.publishedAt,
+    author: { "@type": "Person", name: essay.author.name },
+    publisher: { "@type": "Organization", name: SITE.company, url: SITE_URL },
+    mainEntityOfPage: `${SITE_URL}/photo-essays/${essay.slug}`,
+    ...(essay.cover.src ? { image: [essay.cover.src] } : {}),
+    ...(essay.location
+      ? { contentLocation: { "@type": "Place", name: essay.location } }
+      : {}),
+    keywords: essay.tags.join(", ") || undefined,
+  };
 }

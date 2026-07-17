@@ -6,6 +6,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SITE } from "@/lib/content";
 import { getSiteSettings } from "@/lib/settings";
+import { SITE_URL } from "@/lib/siteUrl";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -37,11 +38,15 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${SITE.brand} — ${SITE.motto}`,
     template: `%s · ${SITE.brand}`,
   },
   description: SITE.motto,
+  alternates: {
+    types: { "application/rss+xml": "/feed.xml" },
+  },
 };
 
 export default async function RootLayout({
