@@ -105,6 +105,19 @@ body:has(.editor-root) > footer {
   );
 }
 
+/* Learn-hero filmstrip frames sit on the always-dark ink hero, so they keep
+   the dark stripe texture in both themes (unlike .essay-placeholder). */
+.filmstrip-frame {
+  background-color: rgba(250, 246, 240, 0.03);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 16px,
+    rgba(250, 246, 240, 0.05) 16px,
+    rgba(250, 246, 240, 0.05) 32px
+  );
+}
+
 /* Hide scrollbar for filter chips on mobile but keep scroll */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
