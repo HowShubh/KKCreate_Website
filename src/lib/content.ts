@@ -415,18 +415,18 @@ export const WHAT_WE_DO: WhatWeDoItem[] = [
 export const GROWTH = {
   kicker: "Every single month",
   feature: {
-    value: "40M",
+    value: "500M",
     plus: "+",
     caption: {
-      prefix: "people reached — more than the population of ",
-      emphasis: "Canada",
+      prefix: "monthly views — more than the population of ",
+      emphasis: "the United States",
       suffix: ".",
     },
   },
   stats: [
-    { label: "Avg. views / video", value: "1.2M+" },
-    { label: "Stories published", value: "180+" },
-    { label: "Districts covered", value: "214" },
+    { label: "Avg. views / video", value: "1.9M" },
+    { label: "Engagement rate", value: "6.8%" },
+    { label: "Total followers", value: "11.5M" },
   ],
 } as const;
 
