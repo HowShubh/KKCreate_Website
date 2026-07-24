@@ -107,7 +107,7 @@ export function IndiaMap({ places }: { places: FilmedPlace[] }) {
                 alt={active.title}
                 fill
                 sizes="256px"
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </div>
           )}
