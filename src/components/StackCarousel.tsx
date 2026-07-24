@@ -67,7 +67,6 @@ export function StackCarousel({
   const n = videos.length;
   const cfg = CFG[variant];
   const [active, setActive] = useState(0);
-  const [hovered, setHovered] = useState<number | null>(null);
   const [containerHover, setContainerHover] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
 
@@ -88,10 +87,7 @@ export function StackCarousel({
     <div
       className="group relative mt-5 flex flex-1 items-center justify-center"
       onMouseEnter={() => setContainerHover(true)}
-      onMouseLeave={() => {
-        setContainerHover(false);
-        setHovered(null);
-      }}
+      onMouseLeave={() => setContainerHover(false)}
     >
       <div
         className={`relative w-full ${
@@ -106,7 +102,6 @@ export function StackCarousel({
           const ad = Math.abs(d);
           const dir = Math.sign(d);
           const isCenter = d === 0;
-          const isHover = hovered === i;
           // Cards past the window hide behind the center, ready to rotate in.
           const inWindow = ad <= VISIBLE;
           const eff = Math.min(ad, VISIBLE);
@@ -115,11 +110,12 @@ export function StackCarousel({
           const xM = inWindow ? dir * (open ? cfg.openM : cfg.restM) * eff : 0;
           const xD = inWindow ? dir * (open ? cfg.openD : cfg.restD) * eff : 0;
           const rot = inWindow ? dir * cfg.rotStep * eff * (open ? 1 : 0.6) : 0;
-          const lift = isHover ? -10 : 0;
+          // Hovering the stack enlarges every card uniformly — no single card
+          // is singled out; use the arrows to bring a card to the front.
+          const openBump = open ? 1.06 : 1;
           const scale =
-            (isCenter ? 1 : inWindow ? 1 - cfg.sideScale * t : 0.85) *
-            (isHover ? 1.05 : 1);
-          const z = isHover ? 200 : inWindow ? 100 - ad : 0;
+            (isCenter ? 1 : inWindow ? 1 - cfg.sideScale * t : 0.85) * openBump;
+          const z = inWindow ? 100 - ad : 0;
           const opacity = isCenter
             ? 1
             : !inWindow
@@ -127,7 +123,7 @@ export function StackCarousel({
               : open
                 ? 1 - 0.2 * t
                 : Math.max(0.2, 0.42 - 0.16 * t);
-          const showInfo = isCenter || isHover;
+          const showInfo = isCenter;
 
           return (
             <a
@@ -136,8 +132,6 @@ export function StackCarousel({
               target="_blank"
               rel="noreferrer"
               aria-label={v.title}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered((h) => (h === i ? null : h))}
               className={`absolute left-1/2 top-1/2 ${cfg.width} [transform:translate(-50%,-50%)_translateX(var(--x))] transition-[transform] duration-300 ease-out md:[transform:translate(-50%,-50%)_translateX(var(--x-md))] ${
                 inWindow ? "" : "pointer-events-none"
               }`}
@@ -152,7 +146,7 @@ export function StackCarousel({
               <span
                 className={`relative block ${cfg.aspect} w-full overflow-hidden rounded-2xl border border-paper/15 shadow-xl shadow-ink/60 transition-[transform,opacity] duration-300 ease-out will-change-transform`}
                 style={{
-                  transform: `rotate(${rot}deg) translateY(${lift}px) scale(${scale})`,
+                  transform: `rotate(${rot}deg) scale(${scale})`,
                   opacity,
                 }}
               >
