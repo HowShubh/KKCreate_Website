@@ -7,15 +7,16 @@ import { NextResponse, type NextRequest } from "next/server";
 //
 //   _type == "catalogItem"              → catalog       (Home / Learn / Catalog)
 //   _type in ["photoEssay", "author"]   → photo-essays  (listing + essay pages)
+//   _type == "learnFormats"             → learn-formats (Learn "However you learn")
 //
-// The webhook body isn't needed — both tags are revalidated on every call,
+// The webhook body isn't needed — every tag is revalidated on every call,
 // which keeps the Sanity webhook config to a single hook if preferred.
 export async function POST(req: NextRequest) {
   const secret = req.nextUrl.searchParams.get("secret");
   if (!process.env.SANITY_REVALIDATE_SECRET || secret !== process.env.SANITY_REVALIDATE_SECRET) {
     return NextResponse.json({ ok: false, message: "Invalid secret" }, { status: 401 });
   }
-  const tags = ["catalog", "photo-essays"];
+  const tags = ["catalog", "photo-essays", "learn-formats"];
   tags.forEach(revalidateTag);
   return NextResponse.json({ ok: true, revalidated: true, tags });
 }
