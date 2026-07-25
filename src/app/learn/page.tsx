@@ -32,7 +32,7 @@ export default async function LearnPage() {
   return (
     <>
       {/* Hero — centered manifesto copy over a scrolling filmstrip */}
-      <section className="relative isolate overflow-hidden border-b border-hairline bg-ink text-paper">
+      <section className="relative isolate overflow-hidden border-b border-hairline bg-canvas text-content">
         <div className="container-page flex flex-col items-center pt-14 pb-10 text-center md:pt-24 md:pb-16">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.35em] text-saffron md:text-xs">
             Create · Learn · Scale · Repeat
@@ -45,7 +45,7 @@ export default async function LearnPage() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-paper/75">
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-content/70">
             Podcasts, videos, workshops, courses, ebooks and tools — built from
             years of experience in scaling multiple channels.
           </p>
@@ -61,7 +61,7 @@ export default async function LearnPage() {
               href={formats.podcast.linkUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-full border border-paper/25 px-7 py-3.5 text-base font-semibold text-paper transition-colors hover:border-paper/50 hover:bg-paper/5"
+              className="inline-flex items-center justify-center rounded-full border border-content/25 px-7 py-3.5 text-base font-semibold text-content transition-colors hover:border-content/50 hover:bg-content/5"
             >
               Creators Podcast
             </a>
@@ -73,17 +73,17 @@ export default async function LearnPage() {
           className="marquee-root relative overflow-hidden pb-10 md:pb-14"
           style={{ "--marquee-duration": "80s" } as React.CSSProperties}
         >
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-ink to-transparent md:w-24" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-ink to-transparent md:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-canvas to-transparent md:w-24" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-canvas to-transparent md:w-24" />
           {/* Two identical copies so the CSS translateX(-50%) loops seamlessly. */}
           <ul className="marquee-track flex w-max gap-4">
             {[...FILMSTRIP, ...FILMSTRIP].map((label, i) => (
               <li
                 key={i}
                 aria-hidden={i >= FILMSTRIP.length}
-                className="filmstrip-frame flex h-40 w-[260px] shrink-0 items-center justify-center rounded-xl border border-paper/10 md:h-44 md:w-[320px]"
+                className="filmstrip-frame flex h-40 w-[260px] shrink-0 items-center justify-center rounded-xl border border-content/10 md:h-44 md:w-[320px]"
               >
-                <span className="font-mono text-xs text-paper/45">{label}</span>
+                <span className="font-mono text-xs text-content/45">{label}</span>
               </li>
             ))}
           </ul>
@@ -91,7 +91,7 @@ export default async function LearnPage() {
       </section>
 
       {/* However you learn — free formats (podcasts + reels) */}
-      <section className="border-b border-hairline bg-ink text-paper">
+      <section className="border-b border-hairline bg-canvas text-content">
         <div className="container-page py-14 md:py-20">
           <h2 className="max-w-2xl font-display text-4xl font-bold leading-[1.08] tracking-tight text-balance md:text-5xl">
             {formats.sectionHeading}{" "}
@@ -163,10 +163,10 @@ function FormatFooter({ format }: { format: LearnFormat }) {
   return (
     <div className="mt-6 flex items-end justify-between gap-6">
       <div>
-        <h3 className="font-display text-xl font-semibold text-paper">
+        <h3 className="font-display text-xl font-semibold text-content">
           {format.heading}
         </h3>
-        <p className="mt-1 text-sm leading-relaxed text-paper/60">
+        <p className="mt-1 text-sm leading-relaxed text-content/60">
           {format.description}
         </p>
       </div>

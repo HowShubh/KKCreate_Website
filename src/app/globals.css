@@ -105,9 +105,19 @@ body:has(.editor-root) > footer {
   );
 }
 
-/* Learn-hero filmstrip frames sit on the always-dark ink hero, so they keep
-   the dark stripe texture in both themes (unlike .essay-placeholder). */
+/* Learn-page filmstrip / placeholder frames. Flips with the theme: dark
+   stripes on the warm canvas in light mode, light stripes on ink in dark. */
 .filmstrip-frame {
+  background-color: var(--color-canvas-2);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 16px,
+    rgba(20, 17, 15, 0.06) 16px,
+    rgba(20, 17, 15, 0.06) 32px
+  );
+}
+:root.dark .filmstrip-frame {
   background-color: rgba(250, 246, 240, 0.03);
   background-image: repeating-linear-gradient(
     45deg,
