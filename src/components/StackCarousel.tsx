@@ -144,7 +144,7 @@ export function StackCarousel({
               }
             >
               <span
-                className={`relative block ${cfg.aspect} w-full overflow-hidden rounded-2xl border border-paper/15 shadow-xl shadow-ink/60 transition-[transform,opacity] duration-300 ease-out will-change-transform`}
+                className={`relative block ${cfg.aspect} w-full overflow-hidden rounded-2xl border border-content/15 shadow-xl shadow-ink/40 transition-[transform,opacity] duration-300 ease-out will-change-transform`}
                 style={{
                   transform: `rotate(${rot}deg) scale(${scale})`,
                   opacity,
@@ -209,7 +209,7 @@ function Arrow({
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Previous" : "Next"}
-      className={`absolute top-1/2 z-[300] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-paper/20 bg-ink/70 text-paper backdrop-blur transition-all duration-200 hover:border-paper/40 hover:bg-ink ${
+      className={`absolute top-1/2 z-[300] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full border border-hairline bg-card/85 text-content shadow-lg shadow-ink/20 backdrop-blur transition-all duration-200 hover:bg-card ${
         dir === "prev" ? "left-0 md:-left-3" : "right-0 md:-right-3"
       } ${visible ? "opacity-100" : "pointer-events-none opacity-0"}`}
     >
