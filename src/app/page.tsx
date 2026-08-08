@@ -1,6 +1,5 @@
 import { Section, SectionHeading } from "@/components/Section";
 import { VibeGrid } from "@/components/VibeGrid";
-import { FlagshipBlock } from "@/components/FlagshipBlock";
 import { Catalog } from "@/components/Catalog";
 import { WhatWeDo } from "@/components/WhatWeDo";
 import { HeroVideo } from "@/components/HeroVideo";
@@ -165,11 +164,6 @@ export default async function HomePage() {
           <BrandMarquee />
         </div>
       </section>
-
-      {/* Flagship */}
-      <Section>
-        <FlagshipBlock />
-      </Section>
 
       {/* Catalog preview */}
       <Section className="bg-canvas-2/50">
