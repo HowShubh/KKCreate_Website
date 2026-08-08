@@ -146,8 +146,10 @@ export default async function HomePage() {
           intro="Tap a dot to see what we shot there."
         />
         {/* Desktop: pull the map up beside the left-aligned heading and park
-            it in the empty right half. Mobile keeps the stacked layout. */}
-        <Reveal className="mt-10 lg:-mt-40 lg:ml-auto lg:w-full lg:max-w-xl lg:pr-4">
+            it in the empty right half — but not so far that it crowds the
+            section above. It should start below the heading, not level with
+            the section's top edge. Mobile keeps the stacked layout. */}
+        <Reveal className="mt-10 lg:-mt-24 lg:ml-auto lg:w-full lg:max-w-xl lg:pr-4">
           <IndiaMap places={filmedPlaces} />
         </Reveal>
       </Section>
