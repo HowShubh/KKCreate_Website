@@ -84,8 +84,10 @@ export function StackCarousel({
   const go = (dir: number) => setActive((a) => (a + dir + n) % n);
 
   return (
+    // `isolate` scopes the card/arrow z-indices below to this stack. Without it
+    // they'd compete with the sticky navbar (z-50) and scroll over it.
     <div
-      className="group relative mt-5 flex flex-1 items-center justify-center"
+      className="group relative isolate mt-5 flex flex-1 items-center justify-center"
       onMouseEnter={() => setContainerHover(true)}
       onMouseLeave={() => setContainerHover(false)}
     >
