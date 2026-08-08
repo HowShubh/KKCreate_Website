@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Section, SectionHeading } from "@/components/Section";
 import { FlagshipBlock } from "@/components/FlagshipBlock";
 import { Catalog } from "@/components/Catalog";
@@ -14,14 +15,16 @@ export const metadata: Metadata = {
     "Workshops, courses, ebooks and tools to grow as a creator — from the KK Create team.",
 };
 
-// Filmstrip placeholders — swap each label for a real photo when assets land.
+// Filmstrip — behind-the-scenes frames, pre-cropped to 12:7 in /public/learn.
 const FILMSTRIP = [
-  "[ shoot: Varanasi ]",
-  "[ workshop: Mumbai ]",
-  "[ edit desk ]",
-  "[ shoot: Jaipur ]",
-  "[ podcast studio ]",
-  "[ workshop: Delhi ]",
+  { src: "/learn/learn-01.jpg", alt: "Kavya with a guest on the podcast set" },
+  { src: "/learn/learn-02.jpg", alt: "A four-person podcast shoot seen from behind the cameras" },
+  { src: "/learn/learn-03.jpg", alt: "Kavya recording a piece to camera at the desk" },
+  { src: "/learn/learn-04.jpg", alt: "The team reviewing a cut at the edit desk" },
+  { src: "/learn/learn-05.jpg", alt: "An interview in progress on the lit studio floor" },
+  { src: "/learn/learn-06.jpg", alt: "Two hosts mid-take in front of the camera" },
+  { src: "/learn/learn-07.jpg", alt: "A guest holding up a photo during a podcast taping" },
+  { src: "/learn/learn-08.jpg", alt: "The team on the ground at a street mural in Mumbai" },
 ];
 
 export default async function LearnPage() {
@@ -77,15 +80,30 @@ export default async function LearnPage() {
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-canvas to-transparent md:w-24" />
           {/* Two identical copies so the CSS translateX(-50%) loops seamlessly. */}
           <ul className="marquee-track flex w-max gap-4">
-            {[...FILMSTRIP, ...FILMSTRIP].map((label, i) => (
-              <li
-                key={i}
-                aria-hidden={i >= FILMSTRIP.length}
-                className="filmstrip-frame flex h-40 w-[260px] shrink-0 items-center justify-center rounded-xl border border-content/10 md:h-44 md:w-[320px]"
-              >
-                <span className="font-mono text-xs text-content/45">{label}</span>
-              </li>
-            ))}
+            {[...FILMSTRIP, ...FILMSTRIP].map((frame, i) => {
+              const isDuplicate = i >= FILMSTRIP.length;
+              return (
+                <li
+                  key={i}
+                  aria-hidden={isDuplicate}
+                  className="filmstrip-frame relative h-40 w-[260px] shrink-0 overflow-hidden rounded-xl border border-content/10 md:h-44 md:w-[320px]"
+                >
+                  <Image
+                    src={frame.src}
+                    alt={isDuplicate ? "" : frame.alt}
+                    fill
+                    sizes="(max-width: 768px) 260px, 320px"
+                    className="object-cover"
+                    // The marquee scrolls frames in on its own, so lazy-loading
+                    // would pop them in mid-slide. Preload the first screenful,
+                    // fetch the rest of the originals eagerly; duplicates reuse
+                    // the same URLs and come from cache.
+                    priority={i < 3}
+                    loading={i >= 3 && i < FILMSTRIP.length ? "eager" : undefined}
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
