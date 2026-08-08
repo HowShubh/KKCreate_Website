@@ -522,17 +522,28 @@ export type BrandWork = {
   logo: string;
 };
 
-// Demo brand set — swap `logo`/`brand` for real client assets when available.
-// White monochrome marks so they sit uniformly on the dark logo cards.
+// Real client list. White monochrome marks so they sit uniformly on the dark
+// logo cards. Simple Icons only carries a handful of these; the rest render as
+// wordmarks (BrandMarquee centers the name when `logo` is empty) until real
+// assets land in /public.
 export const BRAND_WORK: BrandWork[] = [
-  { brand: "Zomato", logo: "https://cdn.simpleicons.org/zomato/ffffff" },
-  { brand: "Swiggy", logo: "https://cdn.simpleicons.org/swiggy/ffffff" },
-  { brand: "Razorpay", logo: "https://cdn.simpleicons.org/razorpay/ffffff" },
-  { brand: "Paytm", logo: "https://cdn.simpleicons.org/paytm/ffffff" },
-  { brand: "PhonePe", logo: "https://cdn.simpleicons.org/phonepe/ffffff" },
-  { brand: "Zerodha", logo: "https://cdn.simpleicons.org/zerodha/ffffff" },
   { brand: "Unacademy", logo: "https://cdn.simpleicons.org/unacademy/ffffff" },
-  { brand: "OYO", logo: "https://cdn.simpleicons.org/oyo/ffffff" },
+  { brand: "Emergent AI", logo: "" },
+  { brand: "OpenAI", logo: "" },
+  { brand: "Google", logo: "https://cdn.simpleicons.org/google/ffffff" },
+  { brand: "Netflix", logo: "https://cdn.simpleicons.org/netflix/ffffff" },
+  { brand: "Hotstar", logo: "" },
+  { brand: "Lenskart", logo: "" },
+  { brand: "Masters Union", logo: "" },
+  { brand: "Indulekha", logo: "" },
+  { brand: "Duolingo", logo: "https://cdn.simpleicons.org/duolingo/ffffff" },
+  { brand: "Policy Bazaar", logo: "" },
+  { brand: "Ditto", logo: "" },
+  { brand: "PhysicsWallah", logo: "" },
+  { brand: "PhonePe", logo: "https://cdn.simpleicons.org/phonepe/ffffff" },
+  { brand: "Gamma", logo: "" },
+  { brand: "Odoo", logo: "https://cdn.simpleicons.org/odoo/ffffff" },
+  { brand: "Cashmere", logo: "" },
 ];
 
 // The Vibe grid is a masonry of frames. A frame is either a looping muted

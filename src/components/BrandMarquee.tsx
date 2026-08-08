@@ -8,7 +8,12 @@ export function BrandMarquee() {
   const loop = [...BRAND_WORK, ...BRAND_WORK];
 
   return (
-    <div className="marquee-root group relative overflow-hidden py-4">
+    // The loop covers one full copy of the track per duration, so the pixel
+    // speed scales with the number of brands — this keeps the pace unhurried.
+    <div
+      className="marquee-root group relative overflow-hidden py-4"
+      style={{ "--marquee-duration": "95s" } as React.CSSProperties}
+    >
       {/* Edge fades */}
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-canvas to-transparent md:w-32" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-canvas to-transparent md:w-32" />
