@@ -161,8 +161,8 @@ body:has(.editor-root) > footer {
   }
 }
 
-/* Attention treatment for the mobile navbar CTA: a brand-coloured halo that
-   breathes, plus a highlight that sweeps across the pill and then rests. */
+/* Attention treatment for the navbar CTA at every breakpoint: a brand-coloured
+   halo that breathes, plus a highlight that sweeps across the pill and rests. */
 @keyframes cta-halo {
   0%,
   100% {

@@ -42,7 +42,7 @@ export function Navbar() {
           <ThemeToggle />
           <Link
             href="/catalog"
-            className="rounded-full bg-content px-5 py-2 text-sm font-semibold text-canvas transition-colors hover:bg-saffron hover:text-paper"
+            className="cta-shine rounded-full bg-saffron px-5 py-2 text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
           >
             Explore Courses
           </Link>
@@ -54,7 +54,7 @@ export function Navbar() {
           <Link
             href="/catalog"
             onClick={() => setOpen(false)}
-            className="cta-shine shrink-0 rounded-full bg-saffron px-4 py-2 text-xs font-semibold text-paper"
+            className="cta-shine shrink-0 rounded-full bg-saffron px-4 py-2 text-xs font-semibold text-paper transition-colors hover:bg-saffron-dark"
           >
             Explore Courses
           </Link>
