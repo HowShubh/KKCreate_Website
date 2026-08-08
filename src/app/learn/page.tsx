@@ -4,7 +4,6 @@ import { Section, SectionHeading } from "@/components/Section";
 import { FlagshipBlock } from "@/components/FlagshipBlock";
 import { Catalog } from "@/components/Catalog";
 import { FaqAccordion } from "@/components/FaqAccordion";
-import { TestimonialsShowcase } from "@/components/TestimonialsShowcase";
 import { getCatalogItems } from "@/lib/catalog";
 import { getLearnFormats, type LearnFormat } from "@/lib/learnFormats";
 import { StackCarousel } from "@/components/StackCarousel";
@@ -161,13 +160,10 @@ export default async function LearnPage() {
         </div>
       </Section>
 
-      {/* Testimonials — videos + text + featured highlight */}
+      {/* FAQ — takes the tinted background the testimonials section used to
+          hold, so the page keeps alternating rather than running two plain
+          sections together. */}
       <Section className="bg-canvas-2/50">
-        <TestimonialsShowcase />
-      </Section>
-
-      {/* FAQ */}
-      <Section>
         <SectionHeading
           kicker="FAQ"
           title="Questions, answered"
