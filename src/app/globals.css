@@ -160,3 +160,52 @@ body:has(.editor-root) > footer {
     animation: none;
   }
 }
+
+/* Attention treatment for the mobile navbar CTA: a brand-coloured halo that
+   breathes, plus a highlight that sweeps across the pill and then rests. */
+@keyframes cta-halo {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 1px rgba(232, 98, 44, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(232, 98, 44, 0.6);
+  }
+}
+@keyframes cta-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  35%,
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+.cta-shine {
+  position: relative;
+  overflow: hidden;
+  animation: cta-halo 3.4s ease-in-out infinite;
+}
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  animation: cta-sweep 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-shine {
+    animation: none;
+  }
+  .cta-shine::after {
+    display: none;
+  }
+}

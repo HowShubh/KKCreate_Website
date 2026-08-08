@@ -48,8 +48,16 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
+        {/* The CTA rides in the bar itself so it stays reachable without
+            opening the menu; the theme toggle moves inside the menu. */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link
+            href="/catalog"
+            onClick={() => setOpen(false)}
+            className="cta-shine shrink-0 rounded-full bg-saffron px-4 py-2 text-xs font-semibold text-paper"
+          >
+            Explore Courses
+          </Link>
           <button
             type="button"
             aria-label="Toggle menu"
@@ -92,14 +100,9 @@ export function Navbar() {
                 </Link>
               </li>
             ))}
-            <li className="pt-2">
-              <Link
-                href="/catalog"
-                onClick={() => setOpen(false)}
-                className="block rounded-full bg-content px-5 py-3 text-center text-sm font-semibold text-canvas"
-              >
-                Explore Courses
-              </Link>
+            {/* Explore Courses lives in the bar now, so it isn't repeated here. */}
+            <li className="mt-1 border-t border-hairline">
+              <ThemeToggle withLabel />
             </li>
           </ul>
         </div>

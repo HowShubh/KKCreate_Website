@@ -3,25 +3,50 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-export function ThemeToggle({ className = "" }: { className?: string }) {
+export function ThemeToggle({
+  className = "",
+  withLabel = false,
+}: {
+  className?: string;
+  /** Full-width icon + text row, for the mobile menu rather than the navbar. */
+  withLabel?: boolean;
+}) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === "dark";
+  const toggle = () => setTheme(isDark ? "light" : "dark");
+  // Render a stable icon/label until mounted to avoid a hydration mismatch.
+  const icon = mounted && isDark ? <SunIcon /> : <MoonIcon />;
+
+  if (withLabel) {
+    return (
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
+        className={`flex w-full items-center gap-3 py-3 text-base font-medium text-content-soft transition-colors hover:text-content ${className}`}
+      >
+        <span className="text-content" suppressHydrationWarning>
+          {icon}
+        </span>
+        <span suppressHydrationWarning>
+          {mounted && isDark ? "Light mode" : "Dark mode"}
+        </span>
+      </button>
+    );
+  }
 
   return (
     <button
       type="button"
       aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={toggle}
       className={`flex h-10 w-10 items-center justify-center rounded-full border border-hairline text-content transition-colors hover:bg-canvas-2 ${className}`}
     >
-      {/* Render a stable icon until mounted to avoid hydration mismatch */}
-      <span suppressHydrationWarning>
-        {mounted && isDark ? <SunIcon /> : <MoonIcon />}
-      </span>
+      <span suppressHydrationWarning>{icon}</span>
     </button>
   );
 }
