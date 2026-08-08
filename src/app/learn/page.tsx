@@ -22,7 +22,6 @@ const FILMSTRIP = [
   { src: "/learn/learn-03.jpg", alt: "Kavya recording a piece to camera at the desk" },
   { src: "/learn/learn-04.jpg", alt: "The team reviewing a cut at the edit desk" },
   { src: "/learn/learn-05.jpg", alt: "An interview in progress on the lit studio floor" },
-  { src: "/learn/learn-06.jpg", alt: "Two hosts mid-take in front of the camera" },
   { src: "/learn/learn-07.jpg", alt: "A guest holding up a photo during a podcast taping" },
   { src: "/learn/learn-08.jpg", alt: "The team on the ground at a street mural in Mumbai" },
   { src: "/learn/learn-09.jpg", alt: "Filming a session at the office table under a softbox" },
@@ -78,8 +77,8 @@ export default async function LearnPage() {
         <div
           className="marquee-root relative overflow-hidden pb-10 md:pb-14"
           // One full copy of the track per duration, so pixel speed scales with
-          // the frame count — 110s keeps the original pace at eleven frames.
-          style={{ "--marquee-duration": "110s" } as React.CSSProperties}
+          // the frame count — 100s keeps the original pace at ten frames.
+          style={{ "--marquee-duration": "100s" } as React.CSSProperties}
         >
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-canvas to-transparent md:w-24" />
           <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-canvas to-transparent md:w-24" />
