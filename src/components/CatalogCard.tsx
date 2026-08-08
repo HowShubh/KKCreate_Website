@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CATALOG_CTA, type CatalogItem, type CatalogType } from "@/lib/content";
+import { type CatalogItem, type CatalogType } from "@/lib/content";
 
 // Gradient wash per product type — gives each card a distinct, on-brand tint.
 const HERO_GRADIENT: Record<CatalogType, string> = {
@@ -72,8 +72,9 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           {tagLabel}
         </span>
 
-        {/* Title (faint echo only on the gradient placeholder) + duration pill */}
-        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center gap-2 p-4 text-center">
+        {/* Title (faint echo only on the gradient placeholder). Duration is
+            deliberately not shown — it stays editable in Sanity. */}
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col items-center p-4 text-center">
           <span className="relative inline-block">
             {!item.thumbnail && (
               <span
@@ -86,10 +87,6 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
             <h3 className="relative font-display text-sm font-extrabold uppercase leading-tight tracking-tight text-white drop-shadow-sm md:text-base">
               {item.title}
             </h3>
-          </span>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur">
-            <ClockIcon />
-            {item.duration}
           </span>
         </div>
       </div>
@@ -111,18 +108,16 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
         </div>
       )}
 
-      {/* Price + CTA — stacks on narrow cards so the label stays on one line */}
-      <div className="flex flex-col items-stretch gap-2.5 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-        <span className="font-display text-lg font-bold text-content">
-          {item.price}
-        </span>
+      {/* CTA. Price is deliberately not shown — it stays editable in Sanity and
+          is quoted on the enrolment page instead. */}
+      <div className="px-4 py-3">
         <a
           href={item.enrollUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="whitespace-nowrap rounded-full bg-saffron px-4 py-2 text-center text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
+          className="block whitespace-nowrap rounded-full bg-saffron px-4 py-2 text-center text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
         >
-          {CATALOG_CTA[item.type]}
+          Register Now
         </a>
       </div>
     </article>
@@ -133,21 +128,6 @@ function PlayIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-7 w-7 fill-white/70" aria-hidden>
       <path d="M8 5.5v13l11-6.5-11-6.5z" />
-    </svg>
-  );
-}
-
-function ClockIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" aria-hidden>
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-      <path
-        d="M12 7v5l3 2"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
     </svg>
   );
 }

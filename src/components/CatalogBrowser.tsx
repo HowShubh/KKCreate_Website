@@ -12,26 +12,21 @@ import { CatalogCard } from "@/components/CatalogCard";
 
 type Topic = (typeof CATALOG_TOPICS)[number];
 type TypeFilter = "All" | CatalogType;
-type Sort = "featured" | "rating" | "price-asc" | "price-desc";
+type Sort = "featured" | "rating";
 
 const TYPE_OPTIONS: { value: TypeFilter; label: string }[] = [
   { value: "All", label: "All types" },
   ...CATALOG_TYPES.map((t) => ({ value: t, label: t })),
 ];
 
+// No price sorts: cards don't show a price, so sorting by one would reshuffle
+// the grid with nothing on screen to explain why.
 const SORT_OPTIONS: { value: Sort; label: string }[] = [
   { value: "featured", label: "Featured" },
   { value: "rating", label: "Top rated" },
-  { value: "price-asc", label: "Price: Low to High" },
-  { value: "price-desc", label: "Price: High to Low" },
 ];
 
 const PAGE_SIZE = 8;
-
-// Parse "₹4,999" → 4999 for price sorting.
-function priceValue(price: string) {
-  return Number(price.replace(/[^\d]/g, "")) || 0;
-}
 
 export function CatalogBrowser({ items }: { items: CatalogItem[] }) {
   const [topic, setTopic] = useState<Topic>("All");
@@ -51,14 +46,6 @@ export function CatalogBrowser({ items }: { items: CatalogItem[] }) {
     switch (sort) {
       case "rating":
         return [...list].sort((a, b) => b.rating - a.rating);
-      case "price-asc":
-        return [...list].sort(
-          (a, b) => priceValue(a.price) - priceValue(b.price)
-        );
-      case "price-desc":
-        return [...list].sort(
-          (a, b) => priceValue(b.price) - priceValue(a.price)
-        );
       default:
         return list;
     }

@@ -61,14 +61,6 @@ export const CATALOG_TOPIC_EMOJI: Record<"All" | CatalogTopic, string> = {
   Writing: "✍️",
 };
 
-// Call-to-action label per product type.
-export const CATALOG_CTA: Record<CatalogType, string> = {
-  Course: "Enroll Now",
-  Workshop: "Book Seat",
-  Ebook: "Get Ebook",
-  Tools: "Get Access",
-};
-
 export type CatalogItem = {
   id: string;
   title: string;
