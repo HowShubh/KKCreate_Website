@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { EssayArticle } from "@/components/EssayArticle";
 import { SITE } from "@/lib/content";
+import { PHOTO_ESSAYS_LIVE } from "@/lib/featureFlags";
 import {
   getPhotoEssay,
   getPhotoEssays,
@@ -11,6 +12,8 @@ import {
 import { SITE_URL } from "@/lib/siteUrl";
 
 export async function generateStaticParams() {
+  // Nothing is published while the section is gated, so don't prerender any.
+  if (!PHOTO_ESSAYS_LIVE) return [];
   const essays = await getPhotoEssays();
   return essays.map((e) => ({ slug: e.slug }));
 }
@@ -20,6 +23,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  if (!PHOTO_ESSAYS_LIVE) return {};
   const { slug } = await params;
   const essay = await getPhotoEssay(slug);
   if (!essay) return {};
@@ -41,6 +45,9 @@ export default async function EssayPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  // Gated: no essay URL should resolve, even if drafts exist in Sanity.
+  if (!PHOTO_ESSAYS_LIVE) notFound();
+
   const { slug } = await params;
   const essay = await getPhotoEssay(slug);
   if (!essay) notFound();

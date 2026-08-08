@@ -1,5 +1,6 @@
 import { formatEssayDate, getPhotoEssays } from "@/lib/photoEssays";
 import { SITE } from "@/lib/content";
+import { PHOTO_ESSAYS_LIVE } from "@/lib/featureFlags";
 import { SITE_URL } from "@/lib/siteUrl";
 
 // /llms.txt — a plain-markdown site guide for AI assistants (llmstxt.org
@@ -8,7 +9,7 @@ import { SITE_URL } from "@/lib/siteUrl";
 export const revalidate = 300;
 
 export async function GET() {
-  const essays = await getPhotoEssays();
+  const essays = PHOTO_ESSAYS_LIVE ? await getPhotoEssays() : [];
 
   const essayLines = essays
     .map(
@@ -17,11 +18,10 @@ export async function GET() {
     )
     .join("\n");
 
-  const body = `# ${SITE.brand}
-
-> ${SITE.motto}. ${SITE.company} is an Indian video studio (YouTube/Instagram: @kk.create) that documents the social realities and cultural diversity of India, publishes long-form photo essays, and teaches creators through courses and workshops.
-
-## Photo-essays
+  // The whole section is omitted while gated — pointing an assistant at a
+  // coming-soon banner is worse than not mentioning it.
+  const essaySection = PHOTO_ESSAYS_LIVE
+    ? `## Photo-essays
 
 Long-form visual stories from the places we film — written by the KK Create team, with photographs, pull quotes and embedded video.
 
@@ -30,7 +30,14 @@ ${essayLines}
 - [All photo-essays](${SITE_URL}/photo-essays): the full index, newest first
 - [RSS feed](${SITE_URL}/feed.xml): machine-readable list of the latest essays
 
-## Learn
+`
+    : "";
+
+  const body = `# ${SITE.brand}
+
+> ${SITE.motto}. ${SITE.company} is an Indian video studio (YouTube/Instagram: @kk.create) that documents the social realities and cultural diversity of India${PHOTO_ESSAYS_LIVE ? ", publishes long-form photo essays," : ""} and teaches creators through courses and workshops.
+
+${essaySection}## Learn
 
 - [Courses & workshops](${SITE_URL}/learn): video-making courses, live workshops and ebooks for creators
 - [Full catalog](${SITE_URL}/catalog): everything we teach, filterable by topic

@@ -1,5 +1,6 @@
 import { getPhotoEssays } from "@/lib/photoEssays";
 import { SITE } from "@/lib/content";
+import { PHOTO_ESSAYS_LIVE } from "@/lib/featureFlags";
 import { SITE_URL } from "@/lib/siteUrl";
 
 // /feed.xml — RSS 2.0 feed of the photo-essays. Feed readers subscribe to
@@ -16,7 +17,9 @@ function xml(text: string): string {
 }
 
 export async function GET() {
-  const essays = await getPhotoEssays();
+  // Stays a valid, empty feed while the section is gated — the document head
+  // advertises /feed.xml, so 404ing here would look broken to readers.
+  const essays = PHOTO_ESSAYS_LIVE ? await getPhotoEssays() : [];
 
   const items = essays
     .map((essay) => {

@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EssayPhoto } from "@/components/EssayPhoto";
+import { PhotoEssaysComingSoon } from "@/components/PhotoEssaysComingSoon";
+import { PHOTO_ESSAYS_LIVE } from "@/lib/featureFlags";
 import {
   formatEssayDate,
   getPhotoEssays,
   type PhotoEssay,
 } from "@/lib/photoEssays";
 
-export const metadata: Metadata = {
-  title: "Photo-essays",
-  description:
-    "Long-form visual stories from the places we film — the frames, faces and footnotes that never make the final cut.",
-};
+export const metadata: Metadata = PHOTO_ESSAYS_LIVE
+  ? {
+      title: "Photo-essays",
+      description:
+        "Long-form visual stories from the places we film — the frames, faces and footnotes that never make the final cut.",
+    }
+  : {
+      title: "Photo-essays — coming soon",
+      description:
+        "Long-form visual stories from the places we film. Coming soon.",
+      // Nothing to index yet, and no half-built section in search results.
+      robots: { index: false, follow: true },
+    };
 
 const PAGE_SIZE = 6;
 
@@ -20,6 +30,8 @@ export default async function PhotoEssaysPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
+  if (!PHOTO_ESSAYS_LIVE) return <PhotoEssaysComingSoon />;
+
   const [{ page: pageParam }, essays] = await Promise.all([
     searchParams,
     getPhotoEssays(),
