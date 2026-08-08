@@ -125,7 +125,10 @@ export function StackCarousel({
               : open
                 ? 1 - 0.2 * t
                 : Math.max(0.2, 0.42 - 0.16 * t);
-          const showInfo = isCenter;
+          // Title is optional, so a card may have nothing to caption — skip the
+          // scrim entirely rather than fading in an empty gradient.
+          const hasCaption = Boolean(v.title || v.views);
+          const showInfo = isCenter && hasCaption;
 
           return (
             <a
@@ -133,7 +136,7 @@ export function StackCarousel({
               href={v.url}
               target="_blank"
               rel="noreferrer"
-              aria-label={v.title}
+              aria-label={v.title || "Watch video"}
               className={`absolute left-1/2 top-1/2 ${cfg.width} [transform:translate(-50%,-50%)_translateX(var(--x))] transition-[transform] duration-300 ease-out md:[transform:translate(-50%,-50%)_translateX(var(--x-md))] ${
                 inWindow ? "" : "pointer-events-none"
               }`}
@@ -175,11 +178,13 @@ export function StackCarousel({
                       {v.views}
                     </span>
                   )}
-                  <span
-                    className={`mt-1 block ${cfg.title} font-semibold leading-snug text-paper`}
-                  >
-                    {v.title}
-                  </span>
+                  {v.title && (
+                    <span
+                      className={`mt-1 block ${cfg.title} font-semibold leading-snug text-paper`}
+                    >
+                      {v.title}
+                    </span>
+                  )}
                 </span>
               </span>
             </a>

@@ -8,6 +8,7 @@ import { urlForImage } from "@/sanity/image";
 // "However you learn" section reads from.
 
 export type LearnVideo = {
+  /** Optional in Sanity — "" renders a card with no caption. */
   title: string;
   views: string;
   url: string;
@@ -105,11 +106,11 @@ const CACHE = { next: { tags: ["learn-formats"], revalidate: 300 } };
 // Reels are portrait (9:16), podcasts landscape (16:9); crop each to suit.
 function mapVideos(docs: VideoDoc[] | undefined, portrait: boolean): LearnVideo[] {
   return (docs ?? [])
-    .filter((v): v is VideoDoc & { title: string; url: string } =>
-      Boolean(v?.title && v?.url),
-    )
+    // The URL is what makes a card useful; the title is optional, so an
+    // untitled video still renders rather than being dropped.
+    .filter((v): v is VideoDoc & { url: string } => Boolean(v?.url))
     .map((v) => ({
-      title: v.title,
+      title: v.title ?? "",
       views: v.views ?? "",
       url: v.url,
       thumbnail: v.thumbnail

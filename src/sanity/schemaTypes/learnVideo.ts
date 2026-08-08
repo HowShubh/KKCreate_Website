@@ -13,8 +13,7 @@ export const learnVideo = defineType({
       name: "title",
       type: "string",
       description:
-        'Short label shown on the featured card, e.g. "Dhruv Rathee, Part 2".',
-      validation: (r) => r.required(),
+        'Optional. Short label shown on the featured card, e.g. "Dhruv Rathee, Part 2". Leave it empty to let the thumbnail speak for itself.',
     }),
     defineField({
       name: "views",
@@ -38,6 +37,11 @@ export const learnVideo = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "views", media: "thumbnail" },
+    select: { title: "title", views: "views", url: "url", media: "thumbnail" },
+    // Title is optional, so fall back to the URL — otherwise untitled rows all
+    // read "Untitled" and can't be told apart in the array.
+    prepare({ title, views, url, media }) {
+      return { title: title || url || "Untitled video", subtitle: views, media };
+    },
   },
 });
