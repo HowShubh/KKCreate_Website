@@ -13,7 +13,7 @@ const priceToAmount = (price: string): number =>
 async function run() {
   const tx = client.transaction();
 
-  CATALOG.forEach((item, index) => {
+  CATALOG.forEach((item) => {
     const doc: Record<string, unknown> = {
       _id: `catalog.${item.id}`,
       _type: "catalogItem",
@@ -29,7 +29,6 @@ async function run() {
       flagship: item.flagship ?? false,
       enrollUrl: item.enrollUrl,
       knowMoreUrl: item.knowMoreUrl,
-      order: index,
     };
     if (item.flagship) {
       doc.flagshipKicker = FLAGSHIP.kicker;

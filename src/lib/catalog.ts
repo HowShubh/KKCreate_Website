@@ -32,7 +32,13 @@ const FIELDS = `_id, title, type, topic, description, priceAmount, duration,
   rating, enrolled, newlyLaunched, flagship, flagshipKicker, flagshipPointers,
   enrollUrl, knowMoreUrl, image`;
 
+// Baseline order: the legacy per-item `order` number. The field is gone from
+// the Studio, but the values live on in existing documents, so the site keeps
+// its current order until the "Catalog order" list is filled in.
 const ITEMS_QUERY = `*[_type == "catalogItem"] | order(coalesce(order, 9999) asc, title asc){ ${FIELDS} }`;
+// Display order proper lives in the drag-to-reorder "Catalog order" document.
+// GROQ can't sort by an array's position, so fetch the ids and apply below.
+const ORDER_QUERY = `*[_type == "catalogOrder"][0].items[]._ref`;
 const FLAGSHIP_QUERY = `*[_type == "catalogItem" && flagship == true] | order(_updatedAt desc)[0]{ ${FIELDS} }`;
 
 const CACHE = { next: { tags: ["catalog"], revalidate: 300 } };
@@ -62,11 +68,27 @@ function mapItem(doc: CatalogDoc): CatalogItem {
   };
 }
 
+// Sort by position in the editor's ordered list. Items missing from it (a newly
+// created one, say) hold their baseline position at the end rather than
+// vanishing or jumping to the front. A draft id resolves to its published id so
+// the order still applies while an item is being edited.
+function applyOrder(items: CatalogItem[], order: string[]): CatalogItem[] {
+  if (!order.length) return items;
+  const rank = new Map(order.map((id, i) => [id, i]));
+  const rankOf = (id: string) =>
+    rank.get(id) ?? rank.get(id.replace(/^drafts\./, "")) ?? Number.MAX_SAFE_INTEGER;
+  return [...items].sort((a, b) => rankOf(a.id) - rankOf(b.id));
+}
+
 export async function getCatalogItems(): Promise<CatalogItem[]> {
   if (!sanityClient) return CATALOG;
   try {
-    const docs = await sanityClient.fetch<CatalogDoc[]>(ITEMS_QUERY, {}, CACHE);
-    return docs?.length ? docs.map(mapItem) : CATALOG;
+    const [docs, order] = await Promise.all([
+      sanityClient.fetch<CatalogDoc[]>(ITEMS_QUERY, {}, CACHE),
+      sanityClient.fetch<string[] | null>(ORDER_QUERY, {}, CACHE),
+    ]);
+    if (!docs?.length) return CATALOG;
+    return applyOrder(docs.map(mapItem), order ?? []);
   } catch (err) {
     console.error("[catalog] Sanity fetch failed — using static fallback:", err);
     return CATALOG;

@@ -1,5 +1,6 @@
 import type { SchemaTypeDefinition } from "sanity";
 import { catalogItem } from "./catalogItem";
+import { catalogOrder } from "./catalogOrder";
 import { siteSettings } from "./siteSettings";
 import { learnFormats } from "./learnFormats";
 import { learnVideo } from "./learnVideo";
@@ -13,6 +14,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   learnFormats,
   learnVideo,
   catalogItem,
+  catalogOrder,
   filmedPlace,
   photoEssay,
   author,

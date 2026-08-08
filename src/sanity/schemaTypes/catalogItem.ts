@@ -89,18 +89,8 @@ export const catalogItem = defineType({
     }),
     defineField({ name: "enrollUrl", title: "Enroll URL", type: "url" }),
     defineField({ name: "knowMoreUrl", title: "Know-more URL", type: "url" }),
-    defineField({
-      name: "order",
-      type: "number",
-      description: "Lower numbers appear first (the default 'featured' order).",
-    }),
-  ],
-  orderings: [
-    {
-      title: "Display order",
-      name: "displayOrder",
-      by: [{ field: "order", direction: "asc" }],
-    },
+    // Display order isn't a field here — it's a drag-to-reorder list in the
+    // "Catalog order" document, so it's set in one place instead of per item.
   ],
   preview: {
     select: { title: "title", type: "type", media: "image", price: "priceAmount" },

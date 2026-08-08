@@ -16,7 +16,7 @@ const STRIPES: React.CSSProperties = {
 };
 
 export function CatalogCard({ item }: { item: CatalogItem }) {
-  const tagLabel = item.flagship ? "Flagship Course" : item.type;
+  const tagLabel = item.flagship ? "Flagship" : item.type;
   const gradient = item.flagship
     ? "from-indigo-deep via-[#232a4d] to-[#2c2540]"
     : HERO_GRADIENT[item.type];

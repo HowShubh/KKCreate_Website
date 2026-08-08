@@ -4,7 +4,7 @@ import { schemaTypes } from "./src/sanity/schemaTypes";
 import { projectId, dataset } from "./src/sanity/env";
 
 // Document types that should exist exactly once (edited in place, not listed).
-const SINGLETONS = new Set(["siteSettings", "learnFormats"]);
+const SINGLETONS = new Set(["siteSettings", "learnFormats", "catalogOrder"]);
 
 // Studio config. Run locally with `npm run studio:dev`, deploy the editor
 // to <project>.sanity.studio with `npm run studio:deploy`.
@@ -34,6 +34,14 @@ export default defineConfig({
                 S.document()
                   .schemaType("learnFormats")
                   .documentId("learnFormats"),
+              ),
+            S.listItem()
+              .title("Catalog order")
+              .id("catalogOrder")
+              .child(
+                S.document()
+                  .schemaType("catalogOrder")
+                  .documentId("catalogOrder"),
               ),
             S.divider(),
             ...S.documentTypeListItems().filter(

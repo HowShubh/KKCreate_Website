@@ -5,7 +5,8 @@ import { NextResponse, type NextRequest } from "next/server";
 // ?secret=<SANITY_REVALIDATE_SECRET>. On publish the matching cache tag is
 // revalidated so the site reflects the change within seconds — no redeploy.
 //
-//   _type == "catalogItem"              → catalog       (Home / Learn / Catalog)
+//   _type in ["catalogItem",
+//             "catalogOrder"]           → catalog       (Home / Learn / Catalog)
 //   _type in ["photoEssay", "author"]   → photo-essays  (listing + essay pages)
 //   _type == "learnFormats"             → learn-formats (Learn "However you learn")
 //
