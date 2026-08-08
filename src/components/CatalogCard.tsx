@@ -16,7 +16,6 @@ const STRIPES: React.CSSProperties = {
 };
 
 export function CatalogCard({ item }: { item: CatalogItem }) {
-  const tagLabel = item.flagship ? "Flagship" : item.type;
   const gradient = item.flagship
     ? "from-indigo-deep via-[#232a4d] to-[#2c2540]"
     : HERO_GRADIENT[item.type];
@@ -64,13 +63,20 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           </>
         )}
 
-        <span
-          className={`absolute left-3 top-3 z-10 rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider shadow-sm ${
-            item.flagship ? "bg-saffron text-paper" : "bg-ink/80 text-paper"
-          }`}
-        >
-          {tagLabel}
-        </span>
+        {/* Two separate tags so a flagship item still shows what it is: the
+            flagship marker sits left, the product type always sits right.
+            A flex row rather than two absolute corners — on a narrow two-up
+            grid the cards get slim enough for the pair to collide. */}
+        <div className="absolute inset-x-3 top-3 z-10 flex items-start gap-1.5">
+          {item.flagship && (
+            <span className="shrink-0 rounded-md bg-saffron px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-paper shadow-sm md:px-2.5 md:text-[10px] md:tracking-wider">
+              Flagship
+            </span>
+          )}
+          <span className="ml-auto shrink-0 rounded-md bg-ink/80 px-2 py-1 text-[9px] font-bold uppercase tracking-wide text-paper shadow-sm md:px-2.5 md:text-[10px] md:tracking-wider">
+            {item.type}
+          </span>
+        </div>
 
         {/* Title (faint echo only on the gradient placeholder). Duration is
             deliberately not shown — it stays editable in Sanity. */}
