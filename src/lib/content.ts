@@ -398,7 +398,7 @@ export const WHAT_WE_DO: WhatWeDoItem[] = [
   {
     title: "Explainers",
     description:
-      "In-studio videos where we break down complex topics through animations and expert interviews — made from our home, built for curious minds.",
+      "In-studio videos where we break down complex topics through animations and expert interviews, made from our home, built for curious minds.",
     image: "/what-we-do/explainers.jpg",
   },
 ];
@@ -410,7 +410,7 @@ export const GROWTH = {
     value: "500M",
     plus: "+",
     caption: {
-      prefix: "monthly views — more than the population of ",
+      prefix: "monthly views, more than the population of ",
       emphasis: "the United States",
       suffix: ".",
     },

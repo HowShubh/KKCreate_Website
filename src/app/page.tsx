@@ -131,7 +131,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Where we've filmed — dotted India map with video pins */}
+      {/* Brands we've worked with — sits right after the numbers, so the proof
+          of scale and the proof of who trusts us read as one run. */}
+      <section className="py-8 md:py-12">
+        <div className="container-page">
+          <SectionHeading
+            kicker="Trusted by"
+            title="Brands we've worked with"
+          />
+        </div>
+        <div className="mt-10">
+          <BrandMarquee />
+        </div>
+      </section>
+
+      {/* Where we've filmed: dotted India map with video pins */}
       <Section>
         <SectionHeading
           kicker="Where we've filmed"
@@ -146,26 +160,13 @@ export default async function HomePage() {
           intro="Tap a dot to see what we shot there."
         />
         {/* Desktop: pull the map up beside the left-aligned heading and park
-            it in the empty right half — but not so far that it crowds the
+            it in the empty right half, but not so far that it crowds the
             section above. It should start below the heading, not level with
             the section's top edge. Mobile keeps the stacked layout. */}
         <Reveal className="mt-10 lg:-mt-24 lg:ml-auto lg:w-full lg:max-w-xl lg:pr-4">
           <IndiaMap places={filmedPlaces} />
         </Reveal>
       </Section>
-
-      {/* Brands we've worked with */}
-      <section className="py-8 md:py-12">
-        <div className="container-page">
-          <SectionHeading
-            kicker="Trusted by"
-            title="Brands we've worked with"
-          />
-        </div>
-        <div className="mt-10">
-          <BrandMarquee />
-        </div>
-      </section>
 
       {/* Catalog preview */}
       <Section className="bg-canvas-2/50">
@@ -218,7 +219,7 @@ export default async function HomePage() {
           <Reveal delay={180}>
             <ContactCard
               title="Careers"
-              text="Editors, researchers, producers — we're always hiring curious people."
+              text="Editors, researchers, producers. We're always hiring curious people."
               cta="See how to apply"
               email={settings.contacts.careers}
             />

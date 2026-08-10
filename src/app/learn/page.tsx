@@ -11,7 +11,7 @@ import { StackCarousel } from "@/components/StackCarousel";
 export const metadata: Metadata = {
   title: "Learn",
   description:
-    "Workshops, courses, ebooks and tools to grow as a creator — from the KK Create team.",
+    "Workshops, courses, ebooks and tools to grow as a creator, from the KK Create team.",
 };
 
 // Filmstrip — behind-the-scenes frames, pre-cropped to 12:7 in /public/learn.
@@ -50,7 +50,7 @@ export default async function LearnPage() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-content/70">
-            Podcasts, videos, workshops, courses, ebooks and tools — built from
+            Podcasts, videos, workshops, courses, ebooks and tools, built from
             years of experience in scaling multiple channels.
           </p>
 

@@ -40,7 +40,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.brand} — ${SITE.motto}`,
+    default: `${SITE.brand} · ${SITE.motto}`,
     template: `%s · ${SITE.brand}`,
   },
   description: SITE.motto,
