@@ -16,7 +16,7 @@ export const metadata: Metadata = PHOTO_ESSAYS_LIVE
         "Long-form visual stories from the places we film — the frames, faces and footnotes that never make the final cut.",
     }
   : {
-      title: "Photo-essays — coming soon",
+      title: "Photo-essays, coming soon",
       description:
         "Long-form visual stories from the places we film. Coming soon.",
       // Nothing to index yet, and no half-built section in search results.
