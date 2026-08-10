@@ -40,7 +40,7 @@ const FALLBACK: LearnFormats = {
     heading: "Podcasts with creators",
     description: "conversations that help you learn content and distribution",
     linkLabel: "Podcasts",
-    linkUrl: "https://youtube.com/@kk.create",
+    linkUrl: "https://www.youtube.com/@learnbykk.create/videos",
     videos: [
       {
         title: "Dhruv Rathee, Part 2",
@@ -55,7 +55,7 @@ const FALLBACK: LearnFormats = {
     heading: "Daily lessons for creators",
     description: "short-form videos that teach content creation and distribution",
     linkLabel: "Reels",
-    linkUrl: "https://instagram.com/kk.create",
+    linkUrl: "https://www.instagram.com/learn.kkcreate/",
     videos: [
       {
         title: "The caption formula we use every day",

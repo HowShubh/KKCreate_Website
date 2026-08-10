@@ -12,7 +12,8 @@
     "studio:deploy": "sanity deploy",
     "seed:catalog": "sanity exec scripts/seed-catalog.ts --with-user-token",
     "seed:catalog-order": "sanity exec scripts/seed-catalog-order.ts --with-user-token",
-    "seed:photo-essays": "sanity exec scripts/seed-photo-essays.ts --with-user-token"
+    "seed:photo-essays": "sanity exec scripts/seed-photo-essays.ts --with-user-token",
+    "set:learn-links": "sanity exec scripts/set-learn-links.ts --with-user-token"
   },
   "dependencies": {
     "@portabletext/editor": "^3.3.19",
