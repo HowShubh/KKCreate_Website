@@ -4,7 +4,7 @@
 export const SITE = {
   company: "K K Create Pvt. Ltd.",
   brand: "KK Create",
-  motto: "Making videos around the social realities of India",
+  motto: "Making videos on the social realities of India",
   platforms: [
     { name: "YouTube", icon: "youtube", href: "https://youtube.com/@kk.create" },
     { name: "Instagram", icon: "instagram", href: "https://instagram.com/kk.create" },
