@@ -3,10 +3,11 @@ import { Logo } from "@/components/Logo";
 import { SocialIcon } from "@/components/SocialIcon";
 import { CopyEmail } from "@/components/CopyEmail";
 import { SITE, NAV_LINKS } from "@/lib/content";
-import { getSiteSettings } from "@/lib/settings";
+import { careersLink, getSiteSettings } from "@/lib/settings";
 
 export async function Footer() {
   const { platforms, contacts } = await getSiteSettings();
+  const careers = careersLink(contacts);
   return (
     <footer className="mt-24 overflow-hidden rounded-t-[2.5rem] bg-feature text-paper">
       <div className="container-page grid gap-12 py-14 md:grid-cols-12">
@@ -62,9 +63,19 @@ export async function Footer() {
               <span className="block text-sm text-paper/50">Creators</span>
               <CopyEmail email={contacts.creators} />
             </li>
+            {/* Brands and Creators hand over an address to copy; Careers is a
+                link out, so it carries the same CTA as its contact card. */}
             <li>
               <span className="block text-sm text-paper/50">Careers</span>
-              <CopyEmail email={contacts.careers} />
+              <a
+                href={careers.href}
+                {...(careers.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="font-medium text-paper transition-colors hover:text-saffron"
+              >
+                {careers.label} <span aria-hidden>→</span>
+              </a>
             </li>
           </ul>
         </div>

@@ -11,8 +11,29 @@ export type ThemeChoice = "light" | "dark" | "system";
 export type SiteSettings = {
   defaultTheme: ThemeChoice;
   platforms: { name: string; icon: SocialName; href: string }[];
-  contacts: { brands: string; creators: string; careers: string };
+  contacts: {
+    brands: string;
+    creators: string;
+    careers: string;
+    /** External openings page. Empty means fall back to the careers email. */
+    careersUrl?: string;
+  };
 };
+
+/**
+ * Where "Careers" points and what it's called. Derived in one place so the
+ * contact card and the footer always show the identical call to action —
+ * the openings page once it's set in Sanity, the careers email until then.
+ */
+export function careersLink(contacts: SiteSettings["contacts"]) {
+  return contacts.careersUrl
+    ? { href: contacts.careersUrl, label: "See open roles", external: true }
+    : {
+        href: `mailto:${contacts.careers}`,
+        label: "See how to apply",
+        external: false,
+      };
+}
 
 const LABELS: Record<SocialName, string> = {
   youtube: "YouTube",
@@ -32,7 +53,12 @@ const CACHE = { next: { tags: ["settings"], revalidate: 300 } };
 type SettingsDoc = {
   defaultTheme?: ThemeChoice;
   social?: { platform?: SocialName; url?: string }[];
-  contacts?: { brands?: string; creators?: string; careers?: string };
+  contacts?: {
+    brands?: string;
+    creators?: string;
+    careers?: string;
+    careersUrl?: string;
+  };
 };
 
 const FALLBACK: SiteSettings = {
@@ -70,6 +96,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
         brands: doc.contacts?.brands || FALLBACK.contacts.brands,
         creators: doc.contacts?.creators || FALLBACK.contacts.creators,
         careers: doc.contacts?.careers || FALLBACK.contacts.careers,
+        careersUrl: doc.contacts?.careersUrl || undefined,
       },
     };
   } catch (err) {

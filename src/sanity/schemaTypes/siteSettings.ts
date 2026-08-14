@@ -75,26 +75,35 @@ export const siteSettings = defineType({
     }),
     defineField({
       name: "contacts",
-      title: "Get in touch — emails",
+      title: "Get in touch",
       type: "object",
       options: { collapsible: false },
       fields: [
         defineField({
           name: "brands",
-          title: "Brands",
+          title: "Brands — email",
           type: "string",
           validation: (r) => r.email(),
         }),
         defineField({
           name: "creators",
-          title: "Creators",
+          title: "Creators — email",
           type: "string",
           validation: (r) => r.email(),
         }),
         defineField({
+          name: "careersUrl",
+          title: "Careers — link to your openings page",
+          type: "url",
+          description:
+            "Where the Careers card and footer link to. Leave empty to fall back to the careers email below.",
+        }),
+        defineField({
           name: "careers",
-          title: "Careers",
+          title: "Careers — email (fallback)",
           type: "string",
+          description:
+            "Only used while the openings link above is empty.",
           validation: (r) => r.email(),
         }),
       ],

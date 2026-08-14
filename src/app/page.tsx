@@ -7,17 +7,17 @@ import { BrandMarquee } from "@/components/BrandMarquee";
 import { SocialIcon } from "@/components/SocialIcon";
 import { CountUp } from "@/components/CountUp";
 import { Reveal } from "@/components/Reveal";
-import { CopyEmail } from "@/components/CopyEmail";
 import { GROWTH, VIBE } from "@/lib/content";
 import { IndiaMap } from "@/components/IndiaMap";
 import { getCatalogItems } from "@/lib/catalog";
-import { getSiteSettings } from "@/lib/settings";
+import { careersLink, getSiteSettings } from "@/lib/settings";
 import { getFilmedPlaces } from "@/lib/filmedPlaces";
 
 export default async function HomePage() {
   const catalogItems = await getCatalogItems();
   const settings = await getSiteSettings();
   const filmedPlaces = await getFilmedPlaces();
+  const careers = careersLink(settings.contacts);
   return (
     <>
       {/* Hero — video anchored to the right, solid panel on the left */}
@@ -205,7 +205,7 @@ export default async function HomePage() {
               title="For Brands"
               text="Sponsorships, branded films and integrated campaigns."
               cta="Pitch a collaboration"
-              email={settings.contacts.brands}
+              href={`mailto:${settings.contacts.brands}`}
             />
           </Reveal>
           <Reveal delay={90}>
@@ -213,15 +213,16 @@ export default async function HomePage() {
               title="For Creators"
               text="Want to collaborate, guest on the podcast or join a shoot?"
               cta="Reach the team"
-              email={settings.contacts.creators}
+              href={`mailto:${settings.contacts.creators}`}
             />
           </Reveal>
           <Reveal delay={180}>
             <ContactCard
               title="Careers"
               text="Editors, researchers, producers. We're always hiring curious people."
-              cta="See how to apply"
-              email={settings.contacts.careers}
+              cta={careers.label}
+              href={careers.href}
+              external={careers.external}
             />
           </Reveal>
         </div>
@@ -230,30 +231,34 @@ export default async function HomePage() {
   );
 }
 
+// One call to action per card, and that's it — the address lives in the
+// mailto, so there's nothing to copy. Careers points at the openings page
+// instead of an inbox once that link is set in Sanity.
 function ContactCard({
   title,
   text,
   cta,
-  email,
+  href,
+  external = false,
 }: {
   title: string;
   text: string;
   cta: string;
-  email: string;
+  href: string;
+  external?: boolean;
 }) {
+  // h-full keeps the three cards squared up when their blurbs wrap differently.
   return (
-    <div className="flex flex-col rounded-2xl border border-hairline bg-card p-7 shadow-sm">
+    <div className="flex h-full flex-col rounded-2xl border border-hairline bg-card p-7 shadow-sm">
       <h3 className="font-display text-xl font-semibold text-content">{title}</h3>
       <p className="mt-2 flex-1 text-content-soft">{text}</p>
       <a
-        href={`mailto:${email}`}
+        href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         className="mt-5 inline-flex items-center gap-1.5 font-semibold text-saffron transition-colors hover:text-saffron-dark"
       >
         {cta} <span aria-hidden>→</span>
       </a>
-      <div className="mt-3">
-        <CopyEmail email={email} tone="onLight" compact />
-      </div>
     </div>
   );
 }
