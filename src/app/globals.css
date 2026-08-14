@@ -209,3 +209,45 @@ body:has(.editor-root) > footer {
     display: none;
   }
 }
+
+/* "Where we've filmed" map: the dot matrix draws itself in, one dot at a time,
+   then the pins pop in on top. Each element carries its own animation-delay
+   inline (IndiaMap computes the stagger); the whole sweep stays paused until
+   the map scrolls into view and the component adds the -in class. */
+@keyframes map-dot-in {
+  from {
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.map-dot,
+.map-pin {
+  /* `backwards`, not `forwards`: the dot holds the hidden from-state through
+     its delay, then hands control back to the base styles once it lands — so
+     the pin's hover:scale-125 still works afterwards. */
+  animation: map-dot-in 380ms cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  animation-play-state: paused;
+}
+
+/* SVG circles scale about the SVG origin unless told to use their own box. */
+.map-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.map-dots-in .map-dot,
+.map-pins-in .map-pin {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-dot,
+  .map-pin {
+    animation: none;
+  }
+}
