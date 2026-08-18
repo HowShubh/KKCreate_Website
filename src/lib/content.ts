@@ -410,7 +410,7 @@ export const GROWTH = {
     value: "500M",
     plus: "+",
     caption: {
-      prefix: "monthly views, more than the population of ",
+      prefix: "views, more than the population of ",
       emphasis: "the United States",
       suffix: ".",
     },
