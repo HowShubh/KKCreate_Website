@@ -14,25 +14,20 @@ export type SiteSettings = {
   contacts: {
     brands: string;
     creators: string;
-    careers: string;
-    /** External openings page. Empty means fall back to the careers email. */
-    careersUrl?: string;
+    /** Openings page, set in Sanity. Undefined until there is one. */
+    careers?: string;
   };
 };
 
 /**
- * Where "Careers" points and what it's called. Derived in one place so the
- * contact card and the footer always show the identical call to action —
- * the openings page once it's set in Sanity, the careers email until then.
+ * Where "Careers" points, derived in one place so the contact card and the
+ * footer always show the identical call to action. Null while the openings
+ * link is empty in Sanity — better no link than one nobody reads.
  */
 export function careersLink(contacts: SiteSettings["contacts"]) {
-  return contacts.careersUrl
-    ? { href: contacts.careersUrl, label: "See open roles", external: true }
-    : {
-        href: `mailto:${contacts.careers}`,
-        label: "See how to apply",
-        external: false,
-      };
+  return contacts.careers
+    ? { href: contacts.careers, label: "See open roles" }
+    : null;
 }
 
 const LABELS: Record<SocialName, string> = {
@@ -57,7 +52,6 @@ type SettingsDoc = {
     brands?: string;
     creators?: string;
     careers?: string;
-    careersUrl?: string;
   };
 };
 
@@ -95,8 +89,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
       contacts: {
         brands: doc.contacts?.brands || FALLBACK.contacts.brands,
         creators: doc.contacts?.creators || FALLBACK.contacts.creators,
-        careers: doc.contacts?.careers || FALLBACK.contacts.careers,
-        careersUrl: doc.contacts?.careersUrl || undefined,
+        careers: doc.contacts?.careers || undefined,
       },
     };
   } catch (err) {

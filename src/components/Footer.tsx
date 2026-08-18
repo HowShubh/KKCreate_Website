@@ -64,19 +64,21 @@ export async function Footer() {
               <CopyEmail email={contacts.creators} />
             </li>
             {/* Brands and Creators hand over an address to copy; Careers is a
-                link out, so it carries the same CTA as its contact card. */}
-            <li>
-              <span className="block text-sm text-paper/50">Careers</span>
-              <a
-                href={careers.href}
-                {...(careers.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-                className="font-medium text-paper transition-colors hover:text-saffron"
-              >
-                {careers.label} <span aria-hidden>→</span>
-              </a>
-            </li>
+                link out, so it carries the same CTA as its contact card — and
+                stays hidden until that openings page exists in Sanity. */}
+            {careers && (
+              <li>
+                <span className="block text-sm text-paper/50">Careers</span>
+                <a
+                  href={careers.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-paper transition-colors hover:text-saffron"
+                >
+                  {careers.label} <span aria-hidden>→</span>
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </div>

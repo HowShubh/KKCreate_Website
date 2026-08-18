@@ -14,7 +14,6 @@ export const SITE = {
   contacts: {
     brands: "brands@kkcreate.in",
     creators: "creators@kkcreate.in",
-    careers: "careers@kkcreate.in",
   },
 } as const;
 

@@ -220,9 +220,9 @@ export default async function HomePage() {
             <ContactCard
               title="Careers"
               text="Editors, researchers, producers. We're always hiring curious people."
-              cta={careers.label}
-              href={careers.href}
-              external={careers.external}
+              cta={careers?.label}
+              href={careers?.href}
+              external
             />
           </Reveal>
         </div>
@@ -232,8 +232,8 @@ export default async function HomePage() {
 }
 
 // One call to action per card, and that's it — the address lives in the
-// mailto, so there's nothing to copy. Careers points at the openings page
-// instead of an inbox once that link is set in Sanity.
+// mailto, so there's nothing to copy. Careers has no link of its own until
+// the openings page is set in Sanity, so that card drops its CTA until then.
 function ContactCard({
   title,
   text,
@@ -243,8 +243,8 @@ function ContactCard({
 }: {
   title: string;
   text: string;
-  cta: string;
-  href: string;
+  cta?: string;
+  href?: string;
   external?: boolean;
 }) {
   // h-full keeps the three cards squared up when their blurbs wrap differently.
@@ -252,13 +252,15 @@ function ContactCard({
     <div className="flex h-full flex-col rounded-2xl border border-hairline bg-card p-7 shadow-sm">
       <h3 className="font-display text-xl font-semibold text-content">{title}</h3>
       <p className="mt-2 flex-1 text-content-soft">{text}</p>
-      <a
-        href={href}
-        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="mt-5 inline-flex items-center gap-1.5 font-semibold text-saffron transition-colors hover:text-saffron-dark"
-      >
-        {cta} <span aria-hidden>→</span>
-      </a>
+      {href && cta && (
+        <a
+          href={href}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="mt-5 inline-flex items-center gap-1.5 font-semibold text-saffron transition-colors hover:text-saffron-dark"
+        >
+          {cta} <span aria-hidden>→</span>
+        </a>
+      )}
     </div>
   );
 }

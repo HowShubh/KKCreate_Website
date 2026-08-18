@@ -92,19 +92,11 @@ export const siteSettings = defineType({
           validation: (r) => r.email(),
         }),
         defineField({
-          name: "careersUrl",
+          name: "careers",
           title: "Careers — link to your openings page",
           type: "url",
           description:
-            "Where the Careers card and footer link to. Leave empty to fall back to the careers email below.",
-        }),
-        defineField({
-          name: "careers",
-          title: "Careers — email (fallback)",
-          type: "string",
-          description:
-            "Only used while the openings link above is empty.",
-          validation: (r) => r.email(),
+            "Where the Careers card and footer link to. Leave it empty and the Careers link is hidden until you have a page to send people to.",
         }),
       ],
     }),
