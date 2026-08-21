@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Fraunces, JetBrains_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { AnalyticsScripts } from "@/components/AnalyticsScripts";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -70,6 +71,8 @@ export default async function RootLayout({
         </ThemeProvider>
         {/* Vercel Analytics: no-ops off Vercel, so local dev stays quiet. */}
         <Analytics />
+        {/* GA + Clarity, deferred until after hydration. */}
+        <AnalyticsScripts />
       </body>
     </html>
   );
