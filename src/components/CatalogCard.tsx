@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { type CatalogItem, type CatalogType } from "@/lib/content";
+import { withUtm } from "@/lib/utm";
 
 // Gradient wash per product type — gives each card a distinct, on-brand tint.
 const HERO_GRADIENT: Record<CatalogType, string> = {
@@ -118,7 +119,7 @@ export function CatalogCard({ item }: { item: CatalogItem }) {
           is quoted on the enrolment page instead. */}
       <div className="px-4 py-3">
         <a
-          href={item.enrollUrl}
+          href={withUtm(item.enrollUrl, { campaign: "catalog" })}
           target="_blank"
           rel="noopener noreferrer"
           className="block whitespace-nowrap rounded-full bg-saffron px-4 py-2 text-center text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"

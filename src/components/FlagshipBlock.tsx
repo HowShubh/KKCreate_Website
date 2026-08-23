@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getFlagship } from "@/lib/catalog";
+import { withUtm } from "@/lib/utm";
 
 export async function FlagshipBlock() {
   const FLAGSHIP = await getFlagship();
@@ -33,7 +34,7 @@ export async function FlagshipBlock() {
               </span>
               <div className="flex gap-3">
                 <a
-                  href={FLAGSHIP.enrollUrl}
+                  href={withUtm(FLAGSHIP.enrollUrl, { campaign: "flagship" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full bg-saffron px-6 py-3 text-sm font-semibold text-paper transition-colors hover:bg-saffron-dark"
@@ -41,7 +42,7 @@ export async function FlagshipBlock() {
                   Enroll Now
                 </a>
                 <a
-                  href={FLAGSHIP.knowMoreUrl}
+                  href={withUtm(FLAGSHIP.knowMoreUrl, { campaign: "flagship" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full border border-paper/30 px-6 py-3 text-sm font-semibold text-paper transition-colors hover:border-paper"
