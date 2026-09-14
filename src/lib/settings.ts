@@ -11,24 +11,9 @@ export type ThemeChoice = "light" | "dark" | "system";
 export type SiteSettings = {
   defaultTheme: ThemeChoice;
   platforms: { name: string; icon: SocialName; href: string }[];
-  contacts: {
-    brands: string;
-    creators: string;
-    /** Openings page, set in Sanity. Undefined until there is one. */
-    careers?: string;
-  };
+  // Careers has no entry here: it's the /careers page (see src/lib/careers.ts).
+  contacts: { brands: string; creators: string };
 };
-
-/**
- * Where "Careers" points, derived in one place so the contact card and the
- * footer always show the identical call to action. Null while the openings
- * link is empty in Sanity — better no link than one nobody reads.
- */
-export function careersLink(contacts: SiteSettings["contacts"]) {
-  return contacts.careers
-    ? { href: contacts.careers, label: "See open roles" }
-    : null;
-}
 
 const LABELS: Record<SocialName, string> = {
   youtube: "YouTube",
@@ -48,11 +33,7 @@ const CACHE = { next: { tags: ["settings"], revalidate: 300 } };
 type SettingsDoc = {
   defaultTheme?: ThemeChoice;
   social?: { platform?: SocialName; url?: string }[];
-  contacts?: {
-    brands?: string;
-    creators?: string;
-    careers?: string;
-  };
+  contacts?: { brands?: string; creators?: string };
 };
 
 const FALLBACK: SiteSettings = {
@@ -89,7 +70,6 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
       contacts: {
         brands: doc.contacts?.brands || FALLBACK.contacts.brands,
         creators: doc.contacts?.creators || FALLBACK.contacts.creators,
-        careers: doc.contacts?.careers || undefined,
       },
     };
   } catch (err) {

@@ -44,7 +44,8 @@ ${essaySection}## Learn
 
 ## Contact
 
-- Brands, creators and careers: kkcreate.mate@gmail.com
+- Brands and creators: kkcreate.mate@gmail.com
+- [Careers](${SITE_URL}/careers): open roles, each linking to its application form
 `;
 
   return new Response(body, {

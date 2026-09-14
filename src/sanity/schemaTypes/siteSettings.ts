@@ -91,13 +91,8 @@ export const siteSettings = defineType({
           type: "string",
           validation: (r) => r.email(),
         }),
-        defineField({
-          name: "careers",
-          title: "Careers — link to your openings page",
-          type: "url",
-          description:
-            "Where the Careers card and footer link to. Leave it empty and the Careers link is hidden until you have a page to send people to.",
-        }),
+        // Careers isn't an email: it links to /careers, which lists the
+        // published "Job opening" documents.
       ],
     }),
   ],

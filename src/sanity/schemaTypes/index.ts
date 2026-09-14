@@ -7,6 +7,7 @@ import { learnVideo } from "./learnVideo";
 import { filmedPlace } from "./filmedPlace";
 import { author } from "./author";
 import { photoEssay } from "./photoEssay";
+import { jobOpening } from "./jobOpening";
 
 // Add future document types here (vibeFrame, review…).
 export const schemaTypes: SchemaTypeDefinition[] = [
@@ -18,4 +19,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   filmedPlace,
   photoEssay,
   author,
+  jobOpening,
 ];

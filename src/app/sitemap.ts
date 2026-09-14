@@ -10,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
     { url: `${SITE_URL}/learn`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${SITE_URL}/catalog`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${SITE_URL}/careers`, changeFrequency: "weekly", priority: 0.5 },
   ];
 
   // While the section is gated there's nothing to index — neither the landing

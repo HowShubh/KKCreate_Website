@@ -10,14 +10,13 @@ import { Reveal } from "@/components/Reveal";
 import { GROWTH, VIBE } from "@/lib/content";
 import { IndiaMap } from "@/components/IndiaMap";
 import { getCatalogItems } from "@/lib/catalog";
-import { careersLink, getSiteSettings } from "@/lib/settings";
+import { getSiteSettings } from "@/lib/settings";
 import { getFilmedPlaces } from "@/lib/filmedPlaces";
 
 export default async function HomePage() {
   const catalogItems = await getCatalogItems();
   const settings = await getSiteSettings();
   const filmedPlaces = await getFilmedPlaces();
-  const careers = careersLink(settings.contacts);
   return (
     <>
       {/* Hero — video anchored to the right, solid panel on the left */}
@@ -220,9 +219,8 @@ export default async function HomePage() {
             <ContactCard
               title="Careers"
               text="Editors, researchers, producers. We're always hiring curious people."
-              cta={careers?.label}
-              href={careers?.href}
-              external
+              cta="See open roles"
+              href="/careers"
             />
           </Reveal>
         </div>
@@ -232,35 +230,30 @@ export default async function HomePage() {
 }
 
 // One call to action per card, and that's it — the address lives in the
-// mailto, so there's nothing to copy. Careers has no link of its own until
-// the openings page is set in Sanity, so that card drops its CTA until then.
+// mailto, so there's nothing to copy. Careers goes to /careers, the page that
+// lists whatever is open right now.
 function ContactCard({
   title,
   text,
   cta,
   href,
-  external = false,
 }: {
   title: string;
   text: string;
-  cta?: string;
-  href?: string;
-  external?: boolean;
+  cta: string;
+  href: string;
 }) {
   // h-full keeps the three cards squared up when their blurbs wrap differently.
   return (
     <div className="flex h-full flex-col rounded-2xl border border-hairline bg-card p-7 shadow-sm">
       <h3 className="font-display text-xl font-semibold text-content">{title}</h3>
       <p className="mt-2 flex-1 text-content-soft">{text}</p>
-      {href && cta && (
-        <a
-          href={href}
-          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="mt-5 inline-flex items-center gap-1.5 font-semibold text-saffron transition-colors hover:text-saffron-dark"
-        >
-          {cta} <span aria-hidden>→</span>
-        </a>
-      )}
+      <a
+        href={href}
+        className="mt-5 inline-flex items-center gap-1.5 font-semibold text-saffron transition-colors hover:text-saffron-dark"
+      >
+        {cta} <span aria-hidden>→</span>
+      </a>
     </div>
   );
 }
